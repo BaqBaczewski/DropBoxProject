@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{_layout.html}">
+<head>
+    <title>Test page</title>
+</head>
+<body>
+<main layout:fragment="main">
+    <h1 th:text="${sessionUser.name}"></h1>
+    <p>This is a paragraph from the test page</p>
+</main>
+</body>
+</html>

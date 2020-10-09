@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Layout page</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <link rel="stylesheet" th:href="@{webjars/bootstrap/4.5.2/dist/css/bootstrap.css}">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" th:href="@{/}">AudioHive</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item" th:classappend="${#request.requestURI == '/' ? 'active':''}">
+                <a class="nav-link" th:href="@{/}">Home</a>
+            </li>
+            <li class="nav-item" sec:authorize="isAnonymous()" th:classappend="${#request.requestURI == '/signup' ? 'active':''}">
+                <a class="nav-link" th:href="@{/signup}">Sign up</a>
+            </li>
+            <li class="nav-item" sec:authorize="isAnonymous()" th:classappend="${#request.requestURI == '/login' ? 'active':''}">
+                <a class="nav-link" th:href="@{/login}">Log in</a>
+            </li>
+            <li class="nav-item" sec:authorize="isAuthenticated()" th:classappend="${#request.requestURI == '/test' ? 'active':''}">
+                <a class="nav-link" th:href="@{/test}">Test</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Dropdown
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-light my-2 mr-4 my-sm-0" type="submit">Search</button>
+        </form>
+        <form class="form-inline my-2 my-lg-0" th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
+            <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Log out</button>
+        </form>
+    </div>
+</nav>
+
+<main layout:fragment="main" class="container py-4">
+    <p>Page content goes here</p>
+</main>
+<script th:src="@{webjars/jquery/3.5.1/dist/jquery.js}"></script>
+<script th:src="@{webjars/popper.js/1.16.1-lts/dist/umd/popper.js}"></script>
+<script th:src="@{webjars/bootstrap/4.5.2/dist/js/bootstrap.js}"></script>
+</body>
+</html>
