@@ -10,6 +10,6 @@ spring:
 
 example:
   audiohive:
-    default_admin:
+    default-admin:
       name: admin
       password: admin123
