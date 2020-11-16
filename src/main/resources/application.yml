@@ -4,9 +4,7 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: validate
-  liquibase:
-    change-log: "classpath:db/changelog/migrations.sql"
+      ddl-auto: update
 
 example:
   audiohive:
