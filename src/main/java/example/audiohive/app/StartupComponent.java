@@ -3,6 +3,7 @@ package example.audiohive.app;
 import example.audiohive.app.configuration.DefaultAdminProperties;
 import example.audiohive.app.user.User;
 import example.audiohive.app.user.UserRepository;
+import example.audiohive.app.user.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,28 +18,28 @@ public class StartupComponent {
 
     private static final Logger logger = LoggerFactory.getLogger(StartupComponent.class);
 
-    private final UserRepository userRepository;
+    private final UserService userService;
     private final DefaultAdminProperties defaultAdminProperties;
 
 
     @Autowired
     public StartupComponent(
-            UserRepository userRepository,
+            UserService userService,
             DefaultAdminProperties defaultAdminProperties
     ) {
-        this.userRepository = userRepository;
+        this.userService = userService;
         this.defaultAdminProperties = defaultAdminProperties;
     }
 
     @EventListener
     @Transactional
     public void handleApplicationReady(ApplicationReadyEvent event) {
-        if (userRepository.existsByNameIgnoreCase(defaultAdminProperties.getName())) {
+        if (userService.userNameTaken(defaultAdminProperties.getName())) {
             logger.info("Default admin account exists already.");
         }
         else {
-            userRepository.save(
-                    new User(defaultAdminProperties.getName(), defaultAdminProperties.getPassword(), User.Role.ADMIN)
+            userService.createUser(
+                    defaultAdminProperties.getName(), defaultAdminProperties.getPassword(), User.Role.ADMIN
             );
             logger.info("Created default admin account: " + defaultAdminProperties.getName());
         }

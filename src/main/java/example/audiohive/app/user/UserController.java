@@ -17,13 +17,11 @@ import javax.validation.Valid;
 @Controller
 public class UserController {
 
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final UserService userService;
 
     @Autowired
-    public UserController(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping("/signup")
@@ -43,9 +41,9 @@ public class UserController {
             return "signup";
         }
 
-        final String encodedPassword = passwordEncoder.encode(registrationDTO.getPassword1());
-
-        userRepository.save(new User(registrationDTO.getName(), encodedPassword, User.Role.USER));
+        userService.createUser(
+                registrationDTO.getName(), registrationDTO.getPassword1(), User.Role.USER
+        );
 
         redirectAttributes.addAttribute("registered", true);
         return "redirect:/login";
