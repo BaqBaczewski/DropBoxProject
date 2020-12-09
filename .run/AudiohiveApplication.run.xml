@@ -1,0 +1,28 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="AudiohiveApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <module name="audiohive" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="example.audiohive.app.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <option name="SPRING_BOOT_MAIN_CLASS" value="example.audiohive.app.AudiohiveApplication" />
+    <option name="ALTERNATIVE_JRE_PATH" />
+    <additionalParameters>
+      <param>
+        <option name="enabled" value="true" />
+        <option name="name" value="spring.thymeleaf.cache" />
+        <option name="value" value="false" />
+      </param>
+      <param>
+        <option name="enabled" value="true" />
+        <option name="name" value="spring.thymeleaf.prefix" />
+        <option name="value" value="file:src/main/resources/templates/" />
+      </param>
+    </additionalParameters>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
