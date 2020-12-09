@@ -9,4 +9,5 @@ import java.util.List;
 
 public interface SoundRepository extends JpaRepository<Sound, String> {
     Page<Sound> findAllByOrderByCreatedAtDesc(Pageable pageable);
+    Page<Sound> findAllByUserOrderByCreatedAtDesc(User user, Pageable pageable);
 }

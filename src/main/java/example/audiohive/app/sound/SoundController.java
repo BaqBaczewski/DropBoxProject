@@ -80,4 +80,12 @@ public class SoundController {
         }
     }
 
+    @GetMapping("/sound/{soundId}")
+    public String soundDetails(Model model, @PathVariable String soundId) {
+        Sound s = soundService.findById(soundId).orElseThrow();
+        model.addAttribute("sound", s);
+
+        return "soundDetails";
+    }
+
 }

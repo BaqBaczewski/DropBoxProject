@@ -17,7 +17,7 @@
         <div class="card-body">
             <h5 class="card-title" th:text="${sound.title}">Example Sound</h5>
             <audio controls th:src="@{/audioData/{soundId}(soundId=${sound.id})}" class="w-100 rounded" preload="none"></audio>
-            <p class="card-text"></p>
+            <a th:href="@{/sound/{soundId}(soundId=${sound.id})}" class="btn btn-primary">Details</a>
         </div>
     </div>
 

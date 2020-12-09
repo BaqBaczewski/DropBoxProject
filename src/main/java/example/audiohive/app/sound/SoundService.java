@@ -4,6 +4,7 @@ import example.audiohive.app.user.User;
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,10 @@ public class SoundService {
 
     public Page<Sound> findNewSounds(Pageable pageable) {
         return soundRepository.findAllByOrderByCreatedAtDesc(pageable);
+    }
+
+    public Page<Sound> findNewestSoundsByUser(User user) {
+        return soundRepository.findAllByUserOrderByCreatedAtDesc(user, PageRequest.of(0, 5));
     }
 
     public Optional<Sound> findById(String id) {
