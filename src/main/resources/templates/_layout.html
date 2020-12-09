@@ -19,14 +19,17 @@
             <li class="nav-item" th:classappend="${#request.requestURI == '/' ? 'active':''}">
                 <a class="nav-link" th:href="@{/}">Home</a>
             </li>
+            <li class="nav-item" th:classappend="${#request.requestURI == '/newSounds' ? 'active':''}">
+                <a class="nav-link" th:href="@{/newSounds}">New Sounds</a>
+            </li>
+            <li class="nav-item" sec:authorize="isAuthenticated()" th:classappend="${#request.requestURI == '/upload' ? 'active':''}">
+                <a class="nav-link" th:href="@{/upload}">Upload</a>
+            </li>
             <li class="nav-item" sec:authorize="isAnonymous()" th:classappend="${#request.requestURI == '/signup' ? 'active':''}">
                 <a class="nav-link" th:href="@{/signup}">Sign up</a>
             </li>
             <li class="nav-item" sec:authorize="isAnonymous()" th:classappend="${#request.requestURI == '/login' ? 'active':''}">
                 <a class="nav-link" th:href="@{/login}">Log in</a>
-            </li>
-            <li class="nav-item" sec:authorize="isAuthenticated()" th:classappend="${#request.requestURI == '/test' ? 'active':''}">
-                <a class="nav-link" th:href="@{/test}">Test</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

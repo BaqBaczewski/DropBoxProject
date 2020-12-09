@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{_layout.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<main layout:fragment="main">
+    <h1>Upload Sound</h1>
+    <form th:action="@{/upload}" th:object="${sound}" method="post" enctype="multipart/form-data">
+
+        <div class="form-group">
+            <label for="inputTitle">Title</label>
+            <input class="form-control" type="text" required id="inputTitle"
+                   th:classappend="${#fields.hasErrors('title') ? 'is-invalid' : ''}"
+                   th:field="*{title}">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputFile">Audio file (mp3)</label>
+            <input class="form-control" type="file" required id="inputFile"
+                   th:classappend="${#fields.hasErrors('file') ? 'is-invalid' : ''}"
+                   th:field="*{file}">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('file')}" th:errors="*{file}"></div>
+        </div>
+
+        <div class="control">
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </div>
+    </form>
+</main>
+</body>
+</html>
