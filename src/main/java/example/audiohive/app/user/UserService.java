@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
     private final UserRepository userRepository;
@@ -22,5 +24,9 @@ public class UserService {
     public User createUser(String name, String plainPassword, User.Role role) {
         User user = new User(name, passwordEncoder.encode(plainPassword), role);
         return userRepository.save(user);
+    }
+
+    public Optional<User> findByName(String name) {
+        return userRepository.findByName(name);
     }
 }

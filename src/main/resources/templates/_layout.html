@@ -2,20 +2,21 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!--/*@thymesVar id="sessionUser" type="example.audiohive.app.user.User"*/-->
 <head>
     <title>Layout page</title>
     <link rel="stylesheet" th:href="@{/style.css}">
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.2/dist/css/bootstrap.css}">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" th:href="@{/}">AudioHive</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow">
+    <a class="navbar-brand text-primary" th:href="@{/}">AudioHive</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav mr-5">
             <li class="nav-item" th:classappend="${#request.requestURI == '/' ? 'active':''}">
                 <a class="nav-link" th:href="@{/}">Home</a>
             </li>
@@ -25,31 +26,27 @@
             <li class="nav-item" sec:authorize="isAuthenticated()" th:classappend="${#request.requestURI == '/upload' ? 'active':''}">
                 <a class="nav-link" th:href="@{/upload}">Upload</a>
             </li>
-            <li class="nav-item" sec:authorize="isAnonymous()" th:classappend="${#request.requestURI == '/signup' ? 'active':''}">
-                <a class="nav-link" th:href="@{/signup}">Sign up</a>
-            </li>
-            <li class="nav-item" sec:authorize="isAnonymous()" th:classappend="${#request.requestURI == '/login' ? 'active':''}">
-                <a class="nav-link" th:href="@{/login}">Log in</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Dropdown
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
+        </ul>
+        <form class="form-inline my-2 my-lg-0 mr-auto">
+            <div class="input-group">
+                <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit">Go</button>
                 </div>
+            </div>
+        </form>
+        <ul class="navbar-nav mr-2" sec:authorize="isAuthenticated()">
+            <li class="nav-item" th:classappend="${#request.requestURI == ('/profile/' + sessionUser.name) ? 'active':''}">
+                <a class="nav-link" th:href="@{/profile/{userName}(userName=${sessionUser.name})}" th:text="${'@' + sessionUser.name}">Upload</a>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-light my-2 mr-4 my-sm-0" type="submit">Search</button>
-        </form>
         <form class="form-inline my-2 my-lg-0" th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
-            <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Log out</button>
+            <button class="btn btn-outline-primary" type="submit">Log out</button>
         </form>
+        <div class="btn-group mr-2" role="toolbar">
+            <a class="btn btn-outline-primary" sec:authorize="isAnonymous()"  th:href="@{/login}">Log in</a>
+            <a class="btn btn-primary" sec:authorize="isAnonymous()"  th:href="@{/signup}">Sign up</a>
+        </div>
     </div>
 </nav>
 

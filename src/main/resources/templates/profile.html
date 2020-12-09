@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{_layout.html}">
+<head>
+    <title>Profile</title>
+</head>
+<body>
+<main layout:fragment="main">
+    <h1 th:text="${'@' + user.name}">Profile</h1>
+
+    <div th:each="sound: ${newestSounds}" class="card mb-2">
+        <div class="card-body">
+            <h5 class="card-title" th:text="${sound.title}">Example Sound</h5>
+            <audio controls th:src="@{/audioData/{soundId}(soundId=${sound.id})}" class="w-100 rounded" preload="none"></audio>
+            <a th:href="@{/sound/{soundId}(soundId=${sound.id})}" class="btn btn-primary stretched-link">Details</a>
+        </div>
+    </div>
+
+</main>
+</body>
+</html>
