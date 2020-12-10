@@ -3,6 +3,7 @@ package example.audiohive.app.user;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.time.Instant;
 
 @Entity
 @Table(
@@ -25,14 +26,16 @@ public class User {
 
     private Role role;
 
-    public User() {
+    private Instant createdAt;
 
+    public User() {
     }
 
-    public User(String name, String encodedPassword, Role role) {
+    public User(String name, String encodedPassword, Role role, Instant createdAt) {
         this.name = name;
         this.encodedPassword = encodedPassword;
         this.role = role;
+        this.createdAt = createdAt;
     }
 
     public String getId() {
@@ -49,6 +52,10 @@ public class User {
 
     public Role getRole() {
         return role;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
     }
 
     @Override

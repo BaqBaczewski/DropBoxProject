@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.Optional;
 
 @Service
@@ -22,7 +23,11 @@ public class UserService {
     }
 
     public User createUser(String name, String plainPassword, User.Role role) {
-        User user = new User(name, passwordEncoder.encode(plainPassword), role);
+        return createUser(name, plainPassword, role, Instant.now());
+    }
+
+    public User createUser(String name, String plainPassword, User.Role role, Instant createdAt) {
+        User user = new User(name, passwordEncoder.encode(plainPassword), role, createdAt);
         return userRepository.save(user);
     }
 
