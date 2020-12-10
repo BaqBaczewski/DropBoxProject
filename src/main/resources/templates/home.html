@@ -16,7 +16,7 @@
                        th:each="sound: ${newSounds}"
                        th:href="@{/sound/{soundId}(soundId=${sound.id})}">
                         <strong th:text="${sound.title}"></strong>
-                        <small th:text="${#dates.format(sound.createdAt)}"></small>
+                        <small th:text="${@dateFormatter.relative(sound.createdAt)}"></small>
                     </a>
                 </div>
             </div>
@@ -27,7 +27,7 @@
                        th:each="user: ${newUsers}"
                        th:href="@{/profile/{userName}(userName=${user.name})}">
                         <strong th:text="${'@' + user.name}"></strong>
-                        <small th:text="${#dates.format(user.createdAt)}"></small>
+                        <small th:text="${@dateFormatter.relative(user.createdAt)}"></small>
                     </a>
                 </div>
             </div>
