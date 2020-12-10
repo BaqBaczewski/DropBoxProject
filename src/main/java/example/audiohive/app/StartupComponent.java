@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
@@ -18,7 +17,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
-import java.net.URL;
+import java.time.Instant;
 
 @Component
 public class StartupComponent {
@@ -44,7 +43,7 @@ public class StartupComponent {
         File resourceFile;
         try {
             resourceFile = new File(getClass().getResource("/example_sounds/" + resourceName).toURI());
-            soundService.create(title, new FileInputStream(resourceFile), resourceFile.length(), user);
+            soundService.create(title, new FileInputStream(resourceFile), resourceFile.length(), user, Instant.now());
         } catch (URISyntaxException | FileNotFoundException e) {
             throw new RuntimeException("Could not create example sound " + title, e);
         }

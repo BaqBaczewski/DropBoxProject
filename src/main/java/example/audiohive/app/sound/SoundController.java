@@ -19,6 +19,7 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.time.Instant;
 import java.util.Optional;
 
 @Controller
@@ -70,7 +71,8 @@ public class SoundController {
         }
 
         try {
-            soundService.create(sound.getTitle(), sound.getFile().getInputStream(), sound.getFile().getSize(), sessionUser);
+            soundService.create(sound.getTitle(), sound.getFile().getInputStream(), sound.getFile().getSize(),
+                    sessionUser, Instant.now());
 
             redirectAttributes.addAttribute("uploaded", true);
             return "redirect:/newSounds";

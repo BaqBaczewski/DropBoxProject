@@ -35,9 +35,9 @@ public class SoundService {
         return soundRepository.findById(id);
     }
 
-    public Sound create(String title, InputStream audioDataStream, long audioDataLength, User user) {
+    public Sound create(String title, InputStream audioDataStream, long audioDataLength, User user, Instant createdAt) {
         Blob audioDataBlob = BlobProxy.generateProxy(audioDataStream, audioDataLength);
-        Sound sound = new Sound(title, audioDataBlob, Instant.now(), user);
+        Sound sound = new Sound(title, audioDataBlob, createdAt, user);
         return soundRepository.save(sound);
     }
 }
