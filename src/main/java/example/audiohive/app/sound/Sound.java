@@ -2,10 +2,8 @@ package example.audiohive.app.sound;
 
 import example.audiohive.app.user.User;
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
-import java.io.InputStream;
 import java.sql.Blob;
 import java.time.Instant;
 
@@ -55,5 +53,13 @@ public class Sound {
 
     public Instant getCreatedAt() {
         return createdAt;
+    }
+
+    @Override
+    public String toString() {
+        return "Sound{" +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                '}';
     }
 }
