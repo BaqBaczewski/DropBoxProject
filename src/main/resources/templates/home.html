@@ -7,8 +7,32 @@
 </head>
 <body>
 <main layout:fragment="main">
-
-    <p>This is a paragraph from the home page</p>
+    <div class="container">
+        <div class="row">
+            <div class="col-md">
+                <h2>New Sounds</h2>
+                <div class="list-group">
+                    <a class="list-group-item list-group-item-action"
+                       th:each="sound: ${newSounds}"
+                       th:href="@{/sound/{soundId}(soundId=${sound.id})}">
+                        <strong th:text="${sound.title}"></strong>
+                        <small th:text="${#dates.format(sound.createdAt)}"></small>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md">
+                <h2>New Users</h2>
+                <div class="list-group">
+                    <a class="list-group-item list-group-item-action"
+                       th:each="user: ${newUsers}"
+                       th:href="@{/profile/{userName}(userName=${user.name})}">
+                        <strong th:text="${'@' + user.name}"></strong>
+                        <small th:text="${#dates.format(user.createdAt)}"></small>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
 </body>
 </html>
