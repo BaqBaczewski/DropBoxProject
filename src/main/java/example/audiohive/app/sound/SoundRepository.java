@@ -4,10 +4,10 @@ import example.audiohive.app.user.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-import java.util.List;
-
-public interface SoundRepository extends JpaRepository<Sound, String> {
+public interface SoundRepository extends JpaRepository<Sound, String>, JpaSpecificationExecutor<Sound> {
     Page<Sound> findAllByOrderByCreatedAtDesc(Pageable pageable);
+
     Page<Sound> findAllByUserOrderByCreatedAtDesc(User user, Pageable pageable);
 }

@@ -1,18 +1,20 @@
 package example.audiohive.app.feed;
 
+import example.audiohive.app.follower.Follower;
 import example.audiohive.app.follower.FollowerService;
+import example.audiohive.app.follower.Follower_;
 import example.audiohive.app.sound.Sound;
 import example.audiohive.app.sound.SoundRepository;
+import example.audiohive.app.sound.Sound_;
 import example.audiohive.app.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
+import javax.persistence.criteria.Root;
+import javax.persistence.criteria.Subquery;
 
 @Service
 public class FeedService {
@@ -27,17 +29,21 @@ public class FeedService {
     }
 
     public Page<Sound> getFeed(User user, Pageable pageable) {
-        List<Sound> sounds = followerService.findUsersFollowedBy(user).stream()
-                .flatMap(u -> soundRepository.findAllByUserOrderByCreatedAtDesc(u, Pageable.unpaged()).stream())
-                .sorted(Comparator.comparing(Sound::getCreatedAt).reversed())
-                .collect(Collectors.toUnmodifiableList());
 
-        int fromIndex = Math.max(0, Math.min(sounds.size() - 1, (int) pageable.getOffset()));
-        int toIndex = Math.max(0, Math.min(sounds.size(), (int) pageable.getOffset() + pageable.getPageSize()));
+        Specification<Sound> specification = (root, query, criteriaBuilder) -> {
+            Subquery<Follower> subQuery = query.subquery(Follower.class);
+            Root<Follower> sqRoot = subQuery.from(Follower.class);
 
-        List<Sound> page = sounds.subList(fromIndex, toIndex);
+            subQuery.select(sqRoot).where(
+                    criteriaBuilder.equal(sqRoot.get(Follower_.followedUser), subQuery.correlate(root).get(Sound_.user)),
+                    criteriaBuilder.equal(sqRoot.get(Follower_.followingUser), user)
+            );
 
-        return new PageImpl<>(page, pageable, sounds.size());
+            query.orderBy(criteriaBuilder.desc(root.get(Sound_.createdAt)));
+            return criteriaBuilder.exists(subQuery);
+        };
+
+        return soundRepository.findAll(specification, pageable);
     }
 
 }
