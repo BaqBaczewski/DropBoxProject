@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+<body>
+
+<div th:fragment="player(soundId)">
+    <audio controls th:src="@{/audioData/{soundId}(soundId=${soundId})}" class="w-100 rounded" preload="none"></audio>
+</div>
+
+</body>
+</html>
