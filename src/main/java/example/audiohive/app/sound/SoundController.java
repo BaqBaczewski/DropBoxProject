@@ -1,5 +1,6 @@
 package example.audiohive.app.sound;
 
+import example.audiohive.app.playback.PlaybackService;
 import example.audiohive.app.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -27,9 +28,12 @@ public class SoundController {
 
     private final SoundService soundService;
 
+    private final PlaybackService playbackService;
+
     @Autowired
-    public SoundController(SoundService soundService) {
+    public SoundController(SoundService soundService, PlaybackService playbackService) {
         this.soundService = soundService;
+        this.playbackService = playbackService;
     }
 
     @GetMapping("/newSounds")
@@ -48,7 +52,7 @@ public class SoundController {
 
             return ResponseEntity.ok()
                     .contentLength(audioBlob.length())
-                    .contentType(new MediaType("audio", "mpeg"))
+                    .contentType(new MediaType("audio", "mp3"))
                     .body(new InputStreamResource(audioBlob.getBinaryStream()));
         }
         return ResponseEntity.notFound().build();
@@ -85,6 +89,7 @@ public class SoundController {
     @GetMapping("/sound/{soundId}")
     public String soundDetails(Model model, @PathVariable("soundId") Sound sound) {
         model.addAttribute("sound", sound);
+        model.addAttribute("playbackCount", playbackService.getPlaybackCount(sound));
 
         return "soundDetails";
     }

@@ -3,7 +3,10 @@
 <body>
 
 <div th:fragment="player(soundId)">
-    <audio controls th:src="@{/audioData/{soundId}(soundId=${soundId})}" class="w-100 rounded" preload="none"></audio>
+    <form th:action="@{/trackPlayback/{soundId}(soundId=${soundId})}" method="post" class="audiohive-player">
+        <audio controls th:src="@{/audioData/{soundId}(soundId=${soundId})}" class="w-100 rounded"
+               preload="none"></audio>
+    </form>
 </div>
 
 </body>
