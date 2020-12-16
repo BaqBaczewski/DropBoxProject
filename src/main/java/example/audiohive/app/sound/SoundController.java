@@ -83,11 +83,18 @@ public class SoundController {
     }
 
     @GetMapping("/sound/{soundId}")
-    public String soundDetails(Model model, @PathVariable String soundId) {
-        Sound s = soundService.findById(soundId).orElseThrow();
-        model.addAttribute("sound", s);
+    public String soundDetails(Model model, @PathVariable("soundId") Sound sound) {
+        model.addAttribute("sound", sound);
 
         return "soundDetails";
     }
 
+    @PostMapping("/deleteSound/{soundId}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or #sound.user.name eq authentication.name")
+    public String deleteSound(@PathVariable("soundId") Sound sound, RedirectAttributes redirectAttributes) {
+        soundService.delete(sound);
+
+        redirectAttributes.addAttribute("soundDeleted", true);
+        return "redirect:/";
+    }
 }

@@ -3,6 +3,7 @@ package example.audiohive.app.security;
 import example.audiohive.app.user.User;
 import example.audiohive.app.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -26,7 +27,8 @@ public class SecurityService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("Not found"));
 
         return new org.springframework.security.core.userdetails.User(
-                user.getName(), user.getEncodedPassword(), List.of()
+                user.getName(), user.getEncodedPassword(),
+                List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()))
         );
 
     }

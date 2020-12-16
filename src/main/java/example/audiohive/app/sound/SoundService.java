@@ -35,6 +35,10 @@ public class SoundService {
         return soundRepository.findById(id);
     }
 
+    public void delete(Sound sound) {
+        soundRepository.delete(sound);
+    }
+
     public Sound create(String title, InputStream audioDataStream, long audioDataLength, User user, Instant createdAt) {
         Blob audioDataBlob = BlobProxy.generateProxy(audioDataStream, audioDataLength);
         Sound sound = new Sound(title, audioDataBlob, createdAt, user);
