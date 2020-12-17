@@ -12,10 +12,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
 import javax.transaction.Transactional;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.time.Instant;
 
+import static example.audiohive.app.TestHelper.dummyAudioData;
+import static example.audiohive.app.TestHelper.later;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
@@ -32,25 +31,6 @@ public class FeedServiceTests {
 
     @Autowired
     private FeedService feedService;
-
-    /**
-     * @return A new InputStream of length 4
-     */
-    private InputStream dummyAudioData() {
-        return new ByteArrayInputStream(new byte[]{1, 2, 3, 4});
-    }
-
-    private Instant instant = Instant.now();
-
-    /**
-     * Helper to create sequential creation dates
-     *
-     * @return an instant later then the previous one
-     */
-    private Instant later() {
-        instant = instant.plusSeconds(1);
-        return instant;
-    }
 
     @Test
     @Transactional
