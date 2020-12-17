@@ -1,9 +1,13 @@
 package example.audiohive.app.user;
 
+import example.audiohive.app.follower.Follower;
+import example.audiohive.app.sound.Sound;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.Collections;
+import java.util.Set;
 
 @Entity
 @Table(
@@ -27,6 +31,15 @@ public class User {
     private Role role;
 
     private Instant createdAt;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Sound> sounds = Collections.emptySet();
+
+    @OneToMany(mappedBy = "followedUser")
+    private Set<Follower> followers = Collections.emptySet();
+
+    @OneToMany(mappedBy = "followingUser")
+    private Set<Follower> following = Collections.emptySet();
 
     public User() {
     }
@@ -56,6 +69,18 @@ public class User {
 
     public Instant getCreatedAt() {
         return createdAt;
+    }
+
+    public Set<Sound> getSounds() {
+        return sounds;
+    }
+
+    public Set<Follower> getFollowers() {
+        return followers;
+    }
+
+    public Set<Follower> getFollowing() {
+        return following;
     }
 
     @Override
