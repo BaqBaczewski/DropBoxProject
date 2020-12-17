@@ -1,5 +1,6 @@
 package example.audiohive.app.sound;
 
+import example.audiohive.app.badge.BadgeService;
 import example.audiohive.app.playback.PlaybackService;
 import example.audiohive.app.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +30,13 @@ public class SoundController {
     private final SoundService soundService;
 
     private final PlaybackService playbackService;
+    private final BadgeService badgeService;
 
     @Autowired
-    public SoundController(SoundService soundService, PlaybackService playbackService) {
+    public SoundController(SoundService soundService, PlaybackService playbackService, BadgeService badgeService) {
         this.soundService = soundService;
         this.playbackService = playbackService;
+        this.badgeService = badgeService;
     }
 
     @GetMapping("/newSounds")
@@ -90,6 +93,7 @@ public class SoundController {
     public String soundDetails(Model model, @PathVariable("soundId") Sound sound) {
         model.addAttribute("sound", sound);
         model.addAttribute("playbackCount", playbackService.getPlaybackCount(sound));
+        model.addAttribute("badges", badgeService.getSoundBadges(sound, Instant.now()));
 
         return "soundDetails";
     }

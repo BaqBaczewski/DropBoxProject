@@ -1,5 +1,6 @@
 package example.audiohive.app.badge;
 
+import example.audiohive.app.sound.Sound;
 import example.audiohive.app.user.User;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,13 @@ public class BadgeService {
         }
 
         return badges;
+    }
+
+    public List<Badge> getSoundBadges(Sound sound, Instant now) {
+        if (sound.getCreatedAt().isAfter(now.minus(24, ChronoUnit.HOURS))) {
+            return List.of(new Badge("Fresh", "info"));
+        }
+        return List.of();
     }
 
 }

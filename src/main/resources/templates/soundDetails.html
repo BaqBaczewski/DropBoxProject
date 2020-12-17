@@ -9,6 +9,13 @@
 <main layout:fragment="main">
     <h1 th:text="${sound.title}"></h1>
 
+    <div>
+        <span th:each="badge: ${badges}"
+              class="badge"
+              th:classappend="${'badge-' + badge.color}"
+              th:text="${badge.label}"></span>
+    </div>
+
     <audio th:replace="_fragments :: player(${sound.id})"></audio>
 
     <p><span class="badge badge-pill badge-primary" th:text="${playbackCount}"></span> plays</p>
