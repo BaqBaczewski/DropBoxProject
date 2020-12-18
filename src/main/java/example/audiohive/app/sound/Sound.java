@@ -8,6 +8,11 @@ import java.sql.Blob;
 import java.time.Instant;
 
 @Entity
+@Table(
+        indexes = {
+                @Index(columnList = "createdAt")
+        }
+)
 public class Sound {
 
     @Id

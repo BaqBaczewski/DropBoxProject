@@ -11,7 +11,11 @@ import java.util.Set;
 
 @Entity
 @Table(
-        uniqueConstraints = @UniqueConstraint(columnNames = {User_.NAME})
+        uniqueConstraints = @UniqueConstraint(columnNames = {User_.NAME}),
+        indexes = {
+                @Index(columnList = "createdAt"),
+                @Index(columnList = "name"),
+        }
 )
 public class User {
 
