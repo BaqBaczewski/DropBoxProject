@@ -1,7 +1,6 @@
 package example.audiohive.app.feed;
 
 import example.audiohive.app.follower.Follower;
-import example.audiohive.app.follower.FollowerService;
 import example.audiohive.app.follower.Follower_;
 import example.audiohive.app.sound.Sound;
 import example.audiohive.app.sound.SoundRepository;
@@ -20,12 +19,10 @@ import javax.persistence.criteria.Subquery;
 public class FeedService {
 
     private final SoundRepository soundRepository;
-    private final FollowerService followerService;
 
     @Autowired
-    public FeedService(SoundRepository soundRepository, FollowerService followerService) {
+    public FeedService(SoundRepository soundRepository) {
         this.soundRepository = soundRepository;
-        this.followerService = followerService;
     }
 
     public Page<Sound> getFeed(User user, Pageable pageable) {
