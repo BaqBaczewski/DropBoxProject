@@ -1,0 +1,9 @@
+{$DOMAIN} {
+    tls {$TLS}
+    reverse_proxy app:8080
+}
+
+www.{$DOMAIN} {
+    tls {$TLS}
+    redir https://{$DOMAIN}
+}

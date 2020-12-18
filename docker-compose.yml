@@ -1,0 +1,39 @@
+version: "3.9"
+
+volumes:
+  db_data:
+  caddy_data:
+  caddy_config:
+
+services:
+  db:
+    image: mariadb:10
+    restart: unless-stopped
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: 1
+      MYSQL_DATABASE: audiohive
+      MYSQL_USER: audiohive
+      MYSQL_PASSWORD: audiohive
+  app:
+    build: .
+    restart: unless-stopped
+    links:
+      - db
+    environment:
+      spring.datasource.url: "jdbc:mariadb://db/audiohive?user=audiohive&password=audiohive"
+  web:
+    build: caddy
+    restart: unless-stopped
+    links:
+      - app
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+    environment:
+      - DOMAIN
+      - TLS
+    ports:
+      - "80:80"
+      - "443:443"
