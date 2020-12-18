@@ -31,3 +31,33 @@ test:
   artifacts:
     reports:
       junit: target/surefire-reports/*.xml
+
+deploy_prod:
+  stage: deploy
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+    - if: '$CI_COMMIT_BRANCH == "cd"'
+  needs:
+    - build
+    - test
+  image: docker/compose:1.27.4
+  before_script:
+    # install ssh key
+    - "[ -f \"$PROD_SSH_KEY\" ] || { echo PROD_SSH_KEY MISSING; exit 1; }"
+    - "[ -f \"$PROD_HOST_KEYS\" ] || { echo PROD_HOST_KEYS MISSING; exit 1; }"
+    - "mkdir -p ~/.ssh"
+    - "cp $PROD_SSH_KEY ~/.ssh/id_rsa"
+    - "chmod 600 ~/.ssh/id_rsa"
+    - "cp $PROD_HOST_KEYS ~/.ssh/known_hosts"
+    - ls -lah ~/.ssh
+  environment:
+    name: Production
+    url: https://$PROD_DOMAIN
+  variables:
+    TLS: $PROD_TLS_EMAIL
+    DOMAIN: $PROD_DOMAIN
+  script:
+    - "docker-compose -H \"ssh://root@$PROD_DOMAIN\" build --pull"
+    - "docker-compose -H \"ssh://root@$PROD_DOMAIN\" up --detach"
+  cache:
+    paths: [ ]
