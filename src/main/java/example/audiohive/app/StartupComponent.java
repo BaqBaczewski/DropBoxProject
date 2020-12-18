@@ -15,7 +15,9 @@ import org.springframework.stereotype.Component;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.Instant;
 
@@ -40,11 +42,31 @@ public class StartupComponent {
     }
 
     private void createExampleSound(String title, String resourceName, User user) {
-        File resourceFile;
         try {
-            resourceFile = new File(getClass().getResource("/example_sounds/" + resourceName).toURI());
-            soundService.create(title, new FileInputStream(resourceFile), resourceFile.length(), user, Instant.now());
-        } catch (URISyntaxException | FileNotFoundException e) {
+            String resourcePath = "/example_sounds/" + resourceName;
+            URI uri = getClass().getResource(resourcePath).toURI();
+            InputStream inputStream;
+            long streamLength;
+            if (uri.isOpaque()) {
+                // running in jar
+                streamLength = 0;
+
+                // read once to determine size
+                InputStream skipStream = getClass().getResourceAsStream(resourcePath);
+                while (skipStream.read() != -1) {
+                    streamLength++;
+                }
+
+                inputStream = getClass().getResourceAsStream(resourcePath);
+            } else {
+                // running from file system
+                File resourceFile = new File(uri);
+                inputStream = new FileInputStream(resourceFile);
+                streamLength = resourceFile.length();
+            }
+
+            soundService.create(title, inputStream, streamLength, user, Instant.now());
+        } catch (URISyntaxException | IOException e) {
             throw new RuntimeException("Could not create example sound " + title, e);
         }
     }
