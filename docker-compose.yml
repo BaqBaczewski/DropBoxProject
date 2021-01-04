@@ -23,7 +23,7 @@ services:
       - db
     environment:
       spring.datasource.url: "jdbc:mariadb://db/audiohive?user=audiohive&password=audiohive"
-      example.audiohive.default-admin.password: "$PROD_ADMIN_PASSWORD"
+      example.audiohive.default-admin.password: "$ADMIN_PASSWORD"
   web:
     build: caddy
     restart: unless-stopped
