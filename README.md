@@ -18,8 +18,8 @@ To test locally you could run `TLS=internal DOMAIN=localhost docker-compose up -
 * Rent a domain name (assuming `audiohive.example` here), point DNS `A` entries to the server
 * generate a keypair and copy it to the server
     ```shell
-    ssh-keygen -t rsa -f audiohive-xyz-rsa # no passphrase!
-    ssh-copy-id -i audiohive-xyz-rsa root@audiohive.example
+    ssh-keygen -t rsa -f audiohive-example-rsa # no passphrase!
+    ssh-copy-id -i audiohive-example-rsa.pub root@audiohive.example
     ```
 
 * in GitLab `Project settings -> CI -> Variables` add
@@ -27,7 +27,7 @@ To test locally you could run `TLS=internal DOMAIN=localhost docker-compose up -
 
     Type: File
 
-    Value: content of `audiohive-xyz-rsa`
+    Value: content of `audiohive-example-rsa`
 
     Protected: Yes
 
