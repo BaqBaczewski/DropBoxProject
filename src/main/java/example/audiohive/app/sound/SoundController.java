@@ -1,5 +1,6 @@
 package example.audiohive.app.sound;
 
+import example.audiohive.app.badge.Badge;
 import example.audiohive.app.badge.BadgeService;
 import example.audiohive.app.playback.PlaybackService;
 import example.audiohive.app.user.User;
@@ -22,6 +23,7 @@ import java.io.IOException;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.time.Instant;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -92,8 +94,12 @@ public class SoundController {
     @GetMapping("/sound/{soundId}")
     public String soundDetails(Model model, @PathVariable("soundId") Sound sound) {
         model.addAttribute("sound", sound);
-        model.addAttribute("playbackCount", playbackService.getPlaybackCount(sound));
-        model.addAttribute("badges", badgeService.getSoundBadges(sound, Instant.now()));
+
+        long playbackCount = playbackService.getPlaybackCount(sound);
+        model.addAttribute("playbackCount", playbackCount);
+
+        List<Badge> badges = badgeService.getSoundBadges(sound, Instant.now());
+        model.addAttribute("badges", badges);
 
         return "soundDetails";
     }
