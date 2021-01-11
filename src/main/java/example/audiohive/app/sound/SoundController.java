@@ -72,8 +72,8 @@ public class SoundController {
 
     @PostMapping("/upload")
     @PreAuthorize("isAuthenticated()")
-    public String upload(@Valid @ModelAttribute UploadSoundDTO sound, @ModelAttribute("sessionUser") User sessionUser,
-                         BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String upload(@Valid @ModelAttribute("sound") UploadSoundDTO sound, BindingResult bindingResult,
+                         @ModelAttribute("sessionUser") User sessionUser, RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
             return "upload";
