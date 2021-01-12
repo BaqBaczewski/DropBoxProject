@@ -10,7 +10,6 @@ import java.util.List;
 public class UploadSoundDTO {
 
     @NotBlank
-    @Size(min = 5, message = "A title must consist of at least 5 characters.")
     private String title;
 
     private MultipartFile file;
