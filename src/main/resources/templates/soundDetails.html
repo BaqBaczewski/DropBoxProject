@@ -17,7 +17,7 @@
     </div>
 
     <audio th:replace="_fragments :: player(${sound.id})"></audio>
-
+    <h5 class="card-title">Uploaded: <small th:text="${@dateFormatter.relative(sound.getCreatedAt())}"></small></h5>
     <p><span class="badge badge-pill badge-primary" th:text="${playbackCount}"></span> plays</p>
 
     <div th:if="${#authorization.expr('hasRole(''ROLE_ADMIN'')') or sound.user.name eq #authentication.name}">
