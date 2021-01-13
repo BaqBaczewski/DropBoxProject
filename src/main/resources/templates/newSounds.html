@@ -26,8 +26,10 @@
 
     <nav>
         <ul class="pagination justify-content-end">
-            <li class="page-item"><a class="page-link" th:href="@{/newSounds(page=${sounds.getNumber() - 1})}" th:if="${sounds.getNumber()!=0}">Previous</a></li>
-            <li class="page-item"><a class="page-link" th:href="@{/newSounds(page=${sounds.getNumber() + 1})}" th:if="${sounds.getNumber()!= sounds.totalPages -1}">Next</a></li>
+            <li class="page-item"><a class="page-link" th:href="@{/newSounds(page=${sounds.getNumber() - 1})}"
+                                     th:if="${sounds.getNumber()!=0}">Previous</a></li>
+            <li class="page-item"><a class="page-link" th:href="@{/newSounds(page=${sounds.getNumber() + 1})}"
+                                     th:if="${sounds.getNumber()!= sounds.totalPages -1}">Next</a></li>
         </ul>
     </nav>
 </main>
