@@ -79,9 +79,7 @@ public class User {
         return sounds;
     }
 
-    public Set<Follower> getFollowers() {
-        return followers;
-    }
+    public Set<Follower> getFollowers() { return followers; }
 
     public Set<Follower> getFollowing() {
         return following;
