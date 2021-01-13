@@ -19,6 +19,13 @@
     <audio th:replace="_fragments :: player(${sound.id})"></audio>
 
     <p><span class="badge badge-pill badge-primary" th:text="${playbackCount}"></span> plays</p>
+    <div>
+        <p> Uploaded by:
+            <a class="card-title"
+               th:href="@{/profile/{userName}(userName=${sound.getUser().getName()})}">
+                <strong th:text="${'@' + sound.getUser().getName()}"></strong>
+            </a></p>
+    </div>
 
     <div th:if="${#authorization.expr('hasRole(''ROLE_ADMIN'')') or sound.user.name eq #authentication.name}">
         <!-- Button trigger modal -->
