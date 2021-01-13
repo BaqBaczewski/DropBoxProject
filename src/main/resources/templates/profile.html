@@ -14,6 +14,13 @@
               class="badge"
               th:classappend="${'badge-' + badge.color}"
               th:text="${badge.label}"></span>
+
+
+    </div>
+    <div>
+
+    <center><h3 th:if="${user.getSounds().isEmpty()}" th:text="${'This user has not uploaded any sounds.'}"></h3></center>
+        <br>
     </div>
 
     <div th:each="sound: ${newestSounds}" class="card mb-2">
@@ -21,9 +28,11 @@
             <h5 class="card-title" th:text="${sound.title}">Example Sound</h5>
             <audio th:replace="_fragments :: player(${sound.id})"></audio>
             <a th:href="@{/sound/{soundId}(soundId=${sound.id})}" class="btn btn-primary stretched-link">Details</a>
+
         </div>
     </div>
 
 </main>
+
 </body>
 </html>
