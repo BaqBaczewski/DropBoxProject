@@ -89,26 +89,78 @@ public class BadgeServiceTest {
     public void testSoundBadgeFresh() {
 
         Instant now = Instant.now();
-
         // we need a user as creator of the test sound
-        User user = userService.createUser("user1", "123", User.Role.USER, now.minus(3, ChronoUnit.HOURS));
-
+        User user = userService.createUser("user1", "123", User.Role.USER, now.minus(24, ChronoUnit.HOURS));
         // create test sound, 2 hours old
         Sound sound1 = soundService.create("new sound", TestHelper.dummyAudioData(), 4, user, now.minus(2, ChronoUnit.HOURS));
-
         // add some playbacks to make it realistic
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 9; i++) {
             playbackService.savePlayback(sound1, null, now.minus(30 - i, ChronoUnit.MINUTES));
         }
-
         // get badges for sound
         List<Badge> soundBadges = badgeService.getSoundBadges(sound1, now);
-
         // verify it has only "Fresh" badge
         assertThat(soundBadges).hasSize(1);
         assertThat(soundBadges.get(0).getLabel()).isEqualTo("Fresh");
         assertThat(soundBadges.get(0).getColor()).isEqualTo("info");
-
     }
+    @Test
+    public void testSoundBadgeHit() {
+
+        Instant now = Instant.now();
+        // we need a user as creator of the test sound
+        User user = userService.createUser("user1", "123", User.Role.USER, now.minus(24, ChronoUnit.HOURS));
+        // create test sound, 2 hours old
+        Sound sound1 = soundService.create("new sound", TestHelper.dummyAudioData(), 4, user, now.minus(2, ChronoUnit.HOURS));
+        // add some playbacks to make it realistic
+        for (int i = 0; i <= 10; i++) {
+            playbackService.savePlayback(sound1, null, now.minus(30 - i, ChronoUnit.MINUTES));
+        }
+        // get badges for sound
+        List<Badge> soundBadges = badgeService.getSoundBadges(sound1, now);
+        // verify it has only "Hit" badge
+        assertThat(soundBadges).hasSize(1);
+        assertThat(soundBadges.get(0).getLabel()).isEqualTo("Hit");
+        assertThat(soundBadges.get(0).getColor()).isEqualTo("primary");
+    }
+    @Test
+    public void testSoundBadgeOldie() {
+
+        Instant now = Instant.now();
+        // we need a user as creator of the test sound
+        User user = userService.createUser("user1", "123", User.Role.USER, now.minus(2, ChronoUnit.HOURS));
+        // create test sound, 2 hours old
+        Sound sound1 = soundService.create("new sound", TestHelper.dummyAudioData(), 4, user, now.minus(5, ChronoUnit.DAYS));
+        // add some playbacks to make it realistic
+        for (int i = 0; i <= 1; i++) {
+            playbackService.savePlayback(sound1, null, now.minus(30 - i, ChronoUnit.MINUTES));
+        }
+        // get badges for sound
+        List<Badge> soundBadges = badgeService.getSoundBadges(sound1, now);
+        // verify it has only "Oldie" badge
+        assertThat(soundBadges).hasSize(1);
+        assertThat(soundBadges.get(0).getLabel()).isEqualTo("Oldie");
+        assertThat(soundBadges.get(0).getColor()).isEqualTo("light");
+    }
+    @Test
+    public void testSoundBadgeEvergreen() {
+
+        Instant now = Instant.now();
+        // we need a user as creator of the test sound
+        User user = userService.createUser("user1", "123", User.Role.USER, now.minus(2, ChronoUnit.HOURS));
+        // create test sound, 2 hours old
+        Sound sound1 = soundService.create("new sound", TestHelper.dummyAudioData(), 4, user, now.minus(10, ChronoUnit.DAYS));
+        // add some playbacks to make it realistic
+        for (int i = 0; i <= 25; i++) {
+            playbackService.savePlayback(sound1, null, now.minus(30 - i, ChronoUnit.MINUTES));
+        }
+        // get badges for sound
+        List<Badge> soundBadges = badgeService.getSoundBadges(sound1, now);
+        // verify it has only "Oldie" badge
+        assertThat(soundBadges).hasSize(1);
+        assertThat(soundBadges.get(0).getLabel()).isEqualTo("Evergreen");
+        assertThat(soundBadges.get(0).getColor()).isEqualTo("success");
+    }
+
 
 }
