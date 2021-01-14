@@ -38,6 +38,10 @@ public class UserController {
             bindingResult.addError(new FieldError("registration", "password2", "Does not match"));
         }
 
+        if (userService.userNameTaken(registrationDTO.getName())) {
+            bindingResult.addError(new FieldError("registration", "name", "User name already taken"));
+        }
+
         if (bindingResult.hasErrors()) {
             return "signup";
         }

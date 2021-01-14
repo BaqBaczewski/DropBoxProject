@@ -1,6 +1,7 @@
 package example.audiohive.app.badge;
 
 import example.audiohive.app.follower.FollowerService;
+import example.audiohive.app.playback.PlaybackService;
 import example.audiohive.app.sound.Sound;
 import example.audiohive.app.sound.SoundService;
 import example.audiohive.app.user.User;
@@ -16,6 +17,13 @@ import java.util.List;
 
 @Service
 public class BadgeService {
+    private final PlaybackService playbackService;
+
+    @Autowired
+    public BadgeService(PlaybackService playbackService) {
+        this.playbackService = playbackService;
+
+    }
 
     private final FollowerService followerService;
     private final SoundService soundService;
@@ -53,10 +61,19 @@ public class BadgeService {
     }
 
     public List<Badge> getSoundBadges(Sound sound, Instant now) {
-        if (sound.getCreatedAt().isAfter(now.minus(24, ChronoUnit.HOURS))) {
+        if (sound.getCreatedAt().isBefore(now.minus(10, ChronoUnit.DAYS)) && (playbackService.getPlaybackCount(sound) >= 25)) {
+            return List.of(new Badge("Evergreen", "success"));
+        }
+        if (sound.getCreatedAt().isBefore(now.minus(5, ChronoUnit.DAYS))) {
+            return List.of(new Badge("Oldie", "light"));
+        }
+        if (sound.getCreatedAt().isAfter(now.minus(24, ChronoUnit.HOURS)) && (playbackService.getPlaybackCount(sound) >= 10)) {
+            return List.of(new Badge("Hit", "primary"));
+        } else if (sound.getCreatedAt().isAfter(now.minus(24, ChronoUnit.HOURS))) {
             return List.of(new Badge("Fresh", "info"));
         }
         return List.of();
     }
+
 
 }
