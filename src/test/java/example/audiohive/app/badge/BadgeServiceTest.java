@@ -144,6 +144,24 @@ public class BadgeServiceTest {
         assertThat(soundBadges.get(0).getColor()).isEqualTo("light");
     }
 
+    @Test
+    public void testSoundBadgeEvergreen() {
 
+        Instant now = Instant.now();
+        // we need a user as creator of the test sound
+        User user = userService.createUser("user1", "123", User.Role.USER, now.minus(2, ChronoUnit.HOURS));
+        // create test sound, 2 hours old
+        Sound sound1 = soundService.create("new sound", TestHelper.dummyAudioData(), 4, user, now.minus(100, ChronoUnit.DAYS));
+        // add some playbacks to make it realistic
+        for (int i = 0; i <= 25; i++) {
+            playbackService.savePlayback(sound1, null, now.minus(30 - i, ChronoUnit.MINUTES));
+        }
+        // get badges for sound
+        List<Badge> soundBadges = badgeService.getSoundBadges(sound1, now);
+        // verify it has only "Oldie" badge
+        assertThat(soundBadges).hasSize(1);
+        assertThat(soundBadges.get(0).getLabel()).isEqualTo("Evergreen");
+        assertThat(soundBadges.get(0).getColor()).isEqualTo("success");
+    }
 
 }
