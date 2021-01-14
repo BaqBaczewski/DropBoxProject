@@ -32,10 +32,10 @@ public class BadgeService {
     }
 
     public List<Badge> getSoundBadges(Sound sound, Instant now) {
-        if (sound.getCreatedAt().isBefore(now.minus(3, ChronoUnit.DAYS)) && (playbackService.getPlaybackCount(sound) >= 25)) {
+        if (sound.getCreatedAt().isBefore(now.minus(10, ChronoUnit.DAYS)) && (playbackService.getPlaybackCount(sound) >= 25)) {
             return List.of(new Badge("Evergreen", "success"));
         }
-        if (sound.getCreatedAt().isBefore(now.minus(3, ChronoUnit.DAYS))) {
+        if (sound.getCreatedAt().isBefore(now.minus(5, ChronoUnit.DAYS))) {
             return List.of(new Badge("Oldie", "light"));
         }
         if (sound.getCreatedAt().isAfter(now.minus(24, ChronoUnit.HOURS)) && (playbackService.getPlaybackCount(sound) >= 10)) {
