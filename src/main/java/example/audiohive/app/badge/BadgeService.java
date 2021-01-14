@@ -33,7 +33,7 @@ public class BadgeService {
             badges.add(new Badge("Newbie", "info"));
         }
 
-        if (user.getCreatedAt().isAfter(now.plus(90, ChronoUnit.DAYS)) && soundService.findNewestSoundsByUser(user).getTotalElements() == 0) {
+        if (user.getCreatedAt().isBefore(now.minus(90, ChronoUnit.DAYS)) && soundService.findNewestSoundsByUser(user).getTotalElements() == 0) {
             badges.add(new Badge("Patron", "light"));
         }
 

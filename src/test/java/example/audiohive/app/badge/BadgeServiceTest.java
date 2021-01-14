@@ -136,15 +136,13 @@ public class BadgeServiceTest {
 
         Instant now = Instant.now();
 
-        User user = userService.createUser("very old user", "123", User.Role.USER, now.plus(91, ChronoUnit.DAYS));
+        User user = userService.createUser("very old user", "123", User.Role.USER, now.minus(91, ChronoUnit.DAYS));
 
         List<Badge> badges = badgeService.getUserBadges(user, now);
 
-        assertThat(badges).hasSize(2);
-        assertThat(badges.get(0).getLabel()).isEqualTo("Newbie");
-        assertThat(badges.get(0).getColor()).isEqualTo("info");
-        assertThat(badges.get(1).getLabel()).isEqualTo("Patron");
-        assertThat(badges.get(1).getColor()).isEqualTo("light");
+        assertThat(badges).hasSize(1);
+        assertThat(badges.get(0).getLabel()).isEqualTo("Patron");
+        assertThat(badges.get(0).getColor()).isEqualTo("light");
     }
 
     @Test
@@ -156,7 +154,9 @@ public class BadgeServiceTest {
 
         List<Badge> badges = badgeService.getUserBadges(user, now);
 
-        assertThat(badges).isEmpty();
+        assertThat(badges).hasSize(1);
+        assertThat(badges.get(0).getLabel()).isEqualTo("Patron");
+        assertThat(badges.get(0).getColor()).isEqualTo("light");
     }
 
     @Test
