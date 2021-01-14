@@ -18,20 +18,14 @@ import java.util.List;
 @Service
 public class BadgeService {
     private final PlaybackService playbackService;
-
-    @Autowired
-    public BadgeService(PlaybackService playbackService) {
-        this.playbackService = playbackService;
-
-    }
-
     private final FollowerService followerService;
     private final SoundService soundService;
 
     @Autowired
-    public BadgeService(FollowerService followerService, SoundService soundService) {
+    public BadgeService(FollowerService followerService, SoundService soundService, PlaybackService playbackService) {
         this.followerService = followerService;
         this.soundService = soundService;
+        this.playbackService = playbackService;
     }
 
     public List<Badge> getUserBadges(User user, Instant now) {
