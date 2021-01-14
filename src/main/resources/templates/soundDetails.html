@@ -14,6 +14,9 @@
               class="badge"
               th:classappend="${'badge-' + badge.color}"
               th:text="${badge.label}"></span>
+        <span th:if="${playbackCount <= 5}"
+              class="badge badge-pill badge-dark" th:text="${'Underground'}"></span>
+
     </div>
 
     <audio th:replace="_fragments :: player(${sound.id})"></audio>
