@@ -29,11 +29,11 @@ public class BadgeService {
     public List<Badge> getUserBadges(User user, Instant now) {
         List<Badge> badges = new LinkedList<>();
 
-        if (user.getCreatedAt().isAfter(now.minus(24, ChronoUnit.HOURS)) && user.getCreatedAt().isAfter(now.minus(90, ChronoUnit.DAYS))) {
+        if (user.getCreatedAt().isAfter(now.minus(24, ChronoUnit.HOURS))) {
             badges.add(new Badge("Newbie", "info"));
         }
 
-        if (user.getCreatedAt().isAfter(now.plus(90, ChronoUnit.DAYS)) && soundService.findNewestSoundsByUser(user).getTotalElements() < 0) {
+        if (user.getCreatedAt().isAfter(now.plus(90, ChronoUnit.DAYS)) && soundService.findNewestSoundsByUser(user).getTotalElements() == 0) {
             badges.add(new Badge("Patron", "light"));
         }
 
