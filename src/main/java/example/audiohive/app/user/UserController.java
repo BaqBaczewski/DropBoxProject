@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 @Controller
 public class UserController {
@@ -25,7 +27,7 @@ public class UserController {
 
     @GetMapping("/signup")
     public String register(Model model) {
-        RegistrationDTO registrationDTO = new RegistrationDTO("", "", "");
+        RegistrationDTO registrationDTO = new RegistrationDTO("", LocalDate.now(), "", "");
         model.addAttribute("registration", registrationDTO);
         return "signup";
     }
@@ -37,6 +39,10 @@ public class UserController {
         if (!registrationDTO.getPassword1().equals(registrationDTO.getPassword2())) {
             bindingResult.addError(new FieldError("registration", "password2", "Does not match"));
         }
+
+        if (ChronoUnit.YEARS.between(registrationDTO.getDate(), LocalDate.now()) < 18) {
+            bindingResult.addError(new FieldError("registration", "date", "You are not old enough"));
+        }    
 
         if (userService.userNameTaken(registrationDTO.getName())) {
             bindingResult.addError(new FieldError("registration", "name", "User name already taken"));
