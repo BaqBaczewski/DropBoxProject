@@ -48,6 +48,27 @@ public class UserController {
             bindingResult.addError(new FieldError("registration", "name", "User name already taken"));
         }
 
+        String allowedCharacters = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789_";
+//        String allowedCharacters = "[a-zA-Z0-9_]";
+
+        boolean isAllowed = true;
+        for (int i = 0; i < registrationDTO.getName().length(); i++) {
+            boolean isFound = false;
+            char checkedCharacter = registrationDTO.getName().charAt(i);
+            for (int j = 0; j < allowedCharacters.length(); j++) {
+                if (checkedCharacter == allowedCharacters.charAt(j)) {
+                    isFound = true;
+                    break;
+                }
+            }
+            if (!isFound) {
+                isAllowed = false;
+            }
+        }
+        if (!isAllowed) {
+            bindingResult.addError(new FieldError("registration", "name", "The name can only contain Latin lower and upper case letters, numbers 0-9 and _"));
+        }
+
         if (bindingResult.hasErrors()) {
             return "signup";
         }
