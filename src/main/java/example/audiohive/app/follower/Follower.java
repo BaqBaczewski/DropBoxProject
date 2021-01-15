@@ -1,6 +1,12 @@
 package example.audiohive.app.follower;
 
 import example.audiohive.app.user.User;
+import example.audiohive.app.user.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -35,4 +41,5 @@ public class Follower {
     public User getFollowingUser() {
         return followingUser;
     }
+
 }

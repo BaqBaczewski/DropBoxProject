@@ -42,6 +42,10 @@ public class UserController {
 
         if (ChronoUnit.YEARS.between(registrationDTO.getDate(), LocalDate.now()) < 18) {
             bindingResult.addError(new FieldError("registration", "date", "You are not old enough"));
+        }    
+
+        if (userService.userNameTaken(registrationDTO.getName())) {
+            bindingResult.addError(new FieldError("registration", "name", "User name already taken"));
         }
 
         if (bindingResult.hasErrors()) {
