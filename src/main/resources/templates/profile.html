@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{_layout.html}">
 <head>
     <title>Profile</title>
@@ -14,14 +15,27 @@
               class="badge"
               th:classappend="${'badge-' + badge.color}"
               th:text="${badge.label}"></span>
-
-
     </div>
-    <div>
 
-    <center><h3 th:if="${user.getSounds().isEmpty()}" th:text="${'This user has not uploaded any sounds.'}"></h3></center>
-        <br>
-    </div>
+
+    <form th:action="@{/follow/{userName}(userName=${user.name})}" method="post" sec:authorize="isAuthenticated()">
+        <div th:if="${user != sessionUser}">
+            <div class="clearfix" th:if="${!isFollowed}">
+                <button class="btn btn-primary mt-1 ml-4" type="submit">Follow</button>
+            </div>
+            <div class="clearfix" th:if="${isFollowed}">
+                <button class="btn btn-primary mt-1 ml-4" type="submit">Unfollow</button>
+            </div>
+        </div>
+    </form>
+
+
+
+        <div>
+
+            <center><h3 th:if="${user.getSounds().isEmpty()}" th:text="${'This user has not uploaded any sounds.'}"></h3></center>
+         <br>
+        </div>
 
     <div th:each="sound: ${newestSounds}" class="card mb-2">
         <div class="card-body">
