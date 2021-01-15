@@ -17,6 +17,13 @@
             <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
         </div>
         <div class="form-group">
+            <label for="inputDate">Date of birth</label>
+            <input class="form-control" type="date" required id="inputDate"
+                   th:classappend="${#fields.hasErrors('date') ? 'is-invalid' : ''}"
+                   th:field="*{date}">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('date')}" th:errors="*{date}"></div>
+        </div>
+        <div class="form-group">
             <label for="inputPassword1">Password</label>
             <input class="form-control" type="password" required id="inputPassword1"
                    th:classappend="${#fields.hasErrors('password1') ? 'is-invalid' : ''}"
