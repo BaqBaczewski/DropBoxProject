@@ -103,4 +103,32 @@ public class FeedServiceTests {
 
     }
 
+    @Test
+    @Transactional
+    public void testFeedsDeleteSound() {
+
+        User user1 = userService.createUser("user1", "123", User.Role.USER);
+        User user2 = userService.createUser("user2", "123", User.Role.USER);
+
+        Sound u1s1 = soundService.create("U1S1", dummyAudioData(), 4, user1, later());
+        Sound u2s1 = soundService.create("U2S1", dummyAudioData(), 4, user2, later());
+        Sound u2s2 = soundService.create("U2S2", dummyAudioData(), 4, user2, later());
+
+        assertThat(feedService.getFeed(user1, PageRequest.of(0, 10))).isEmpty();
+        assertThat(feedService.getFeed(user2, PageRequest.of(1, 10))).isEmpty();
+
+        followerService.setFollowing(user1, user2, true);
+        assertThat(feedService.getFeed(user1, PageRequest.of(0, 10))).containsExactly(u2s2, u2s1);
+        assertThat(feedService.getFeed(user2, PageRequest.of(1, 10))).isEmpty();
+
+        followerService.setFollowing(user2, user1, true);
+        assertThat(feedService.getFeed(user1, PageRequest.of(0, 10))).containsExactly(u2s2, u2s1);
+        assertThat(feedService.getFeed(user2, PageRequest.of(0, 10))).containsExactly(u1s1);
+
+        soundService.delete(u2s1);
+
+        assertThat(feedService.getFeed(user1, PageRequest.of(0, 10))).containsExactly(u2s2);
+
+    }
+
 }
