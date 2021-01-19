@@ -18,6 +18,13 @@
     </div>
 
 
+    <div class="badge-body">
+            <a class="badge bg-secondary text-light" th:text="'followers '+${user.getFollowers().size()}"></a>
+            <a class="badge bg-secondary text-light" th:text="'following '+${user.getFollowing().size()}"></a>
+    </div>
+
+
+
     <form th:action="@{/follow/{userName}(userName=${user.name})}" method="post" sec:authorize="isAuthenticated()">
         <div th:if="${user != sessionUser}">
             <div class="clearfix" th:if="${!isFollowed}">
@@ -28,6 +35,7 @@
             </div>
         </div>
     </form>
+
 
 
 
