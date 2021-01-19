@@ -21,10 +21,10 @@
     <form th:action="@{/follow/{userName}(userName=${user.name})}" method="post" sec:authorize="isAuthenticated()">
         <div th:if="${user != sessionUser}">
             <div class="clearfix" th:if="${!isFollowed}">
-                <button class="btn btn-primary mt-1 ml-4" type="submit">Follow</button>
+                <button class="btn btn-primary mt-1" type="submit">Follow</button>
             </div>
             <div class="clearfix" th:if="${isFollowed}">
-                <button class="btn btn-primary mt-1 ml-4" type="submit">Unfollow</button>
+                <button class="btn btn-primary mt-1" type="submit">Unfollow</button>
             </div>
         </div>
     </form>
