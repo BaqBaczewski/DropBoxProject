@@ -34,6 +34,10 @@
                 th:classappend="${#request.requestURI == '/upload' ? 'active':''}">
                 <a class="nav-link" th:href="@{/upload}">Upload</a>
             </li>
+            <li class="nav-item" sec:authorize="isAuthenticated()"
+                th:classappend="${#request.requestURI == '/feed' ? 'active':''}">
+                <a class="nav-link" th:href="@{/feed/{userName}(userName=${sessionUser.name})}">Feed</a>
+            </li>
         </ul>
         <ul class="navbar-nav mr-2" sec:authorize="isAuthenticated()">
             <li class="nav-item" th:classappend="${#request.requestURI == ('/profile/' + sessionUser.name) ? 'active':''}">
