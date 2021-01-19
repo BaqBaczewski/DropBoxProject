@@ -2,11 +2,15 @@ package example.audiohive.app.profile;
 
 import example.audiohive.app.badge.Badge;
 import example.audiohive.app.badge.BadgeService;
+import example.audiohive.app.follower.Follower;
+import example.audiohive.app.follower.FollowerId;
+import example.audiohive.app.follower.FollowerId_;
 import example.audiohive.app.follower.FollowerService;
 import example.audiohive.app.sound.Sound;
 import example.audiohive.app.sound.SoundService;
 import example.audiohive.app.user.User;
 import example.audiohive.app.user.UserService;
+import example.audiohive.app.user.User_;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.time.Instant;
+import java.util.Collection;
 import java.util.List;
 
 @Controller
@@ -49,6 +54,12 @@ public class ProfileController {
 
         boolean isFollowed = followerService.isFollowing(sessionUser, user);
         model.addAttribute("isFollowed", isFollowed);
+
+        Collection<User> followers = followerService.findUsersFollowing(user);
+        model.addAttribute("followers", followers.size());
+
+        Collection<User> following =followerService.findUsersFollowedBy(user);
+        model.addAttribute("following",following.size());
 
         return "profile";
     }
