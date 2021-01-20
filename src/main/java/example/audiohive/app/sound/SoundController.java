@@ -6,6 +6,7 @@ import example.audiohive.app.playback.PlaybackService;
 import example.audiohive.app.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
@@ -43,10 +44,15 @@ public class SoundController {
 
     @GetMapping("/newSounds")
     public String newSounds(Model model, @RequestParam(defaultValue = "0") int page) {
-        Pageable pageable = PageRequest.of(page, 10);
-        model.addAttribute("sounds", soundService.findNewSounds(pageable));
+        Pageable pageable = PageRequest.of(page, 2);
+        Page<Sound> soundPage = soundService.findNewSounds(pageable);
+        model.addAttribute("sounds", soundPage);
+
+        List<Integer> pagination = SoundService.createPagination(soundPage.getNumber(), soundPage.getTotalPages());
+        model.addAttribute("pagination", pagination);
         return "newSounds";
     }
+
 
     @GetMapping("/audioData/{soundId}")
     public ResponseEntity<InputStreamResource> audioData(@PathVariable String soundId) throws SQLException {
