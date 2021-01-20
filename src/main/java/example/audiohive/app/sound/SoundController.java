@@ -78,7 +78,7 @@ public class SoundController {
         if (bindingResult.hasErrors()){
             return "upload";
         }
-        if (!sound.getFile().getContentType().equals("audio/mp3")){
+        if (!sound.getFile().getContentType().equals("audio/mpeg")){
             bindingResult.addError(new FieldError("sound", "file","Error!!! Incorrect file type."));
         }
         if (bindingResult.hasErrors()){
