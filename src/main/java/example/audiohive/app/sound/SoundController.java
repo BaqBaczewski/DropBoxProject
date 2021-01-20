@@ -14,6 +14,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -72,10 +73,15 @@ public class SoundController {
 
     @PostMapping("/upload")
     @PreAuthorize("isAuthenticated()")
-    public String upload(@Valid @ModelAttribute("sound") UploadSoundDTO sound, BindingResult bindingResult,
-                         @ModelAttribute("sessionUser") User sessionUser, RedirectAttributes redirectAttributes) {
-
-        if (bindingResult.hasErrors()) {
+    public String upload(@Valid @ModelAttribute ("sound") UploadSoundDTO sound, BindingResult bindingResult, @ModelAttribute("sessionUser") User sessionUser,
+                         RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()){
+            return "upload";
+        }
+        if (!sound.getFile().getContentType().equals("audio/mp3")){
+            bindingResult.addError(new FieldError("sound", "file","Error!!! Incorrect file type."));
+        }
+        if (bindingResult.hasErrors()){
             return "upload";
         }
 
