@@ -8,13 +8,6 @@
 <body>
 <main layout:fragment="main">
     <h1>Feed</h1>
-<!--    <div class="alert alert-success" role="alert" th:if="${param.uploaded}">-->
-<!--        Thank you for uploading!-->
-<!--        <button type="button" class="close" data-dismiss="alert" aria-label="Close">-->
-<!--            <span aria-hidden="true">&times;</span>-->
-<!--        </button>-->
-<!--    </div>-->
-    <!--/*@thymesVar id="sounds" type=""*/-->
     <div th:each="sound: ${sounds}" class="card mb-2">
         <div class="card-body">
             <h5 class="card-title" th:text="${sound.title}">Example Sound</h5>
@@ -33,9 +26,9 @@
 
     <nav>
         <ul class="pagination justify-content-end">
-            <li class="page-item"><a class="page-link" th:href="@{/feed/{userName}(page=${sounds.getNumber() - 1})}"
+            <li class="page-item"><a class="page-link" th:href="@{/feed(page=${sounds.getNumber() - 1})}"
                                      th:if="${sounds.getNumber()!=0}">Previous</a></li>
-            <li class="page-item"><a class="page-link" th:href="@{/feed/{userName}(page=${sounds.getNumber() + 1})}"
+            <li class="page-item"><a class="page-link" th:href="@{/feed(page=${sounds.getNumber() + 1})}"
                                      th:if="${sounds.getNumber()!= sounds.totalPages -1}">Next</a></li>
         </ul>
     </nav>
