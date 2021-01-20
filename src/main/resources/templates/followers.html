@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{_layout.html}">
+<head>
+       <title >Followers</title>
+</head>
+<body>
+<main layout:fragment="main">
+<h1 th:text="${userName}'followers'"></h1>
+
+
+    <div class="list-group">
+        <div >
+        <a class="list-group-item list-group-item-action"
+           th:each="user=${followers}"
+           th:href="@{/profile/{userName}(userName=${user.name})}">
+       <strong th:text="${'@'+userName}"></strong>
+         </a>
+
+        </div>
+
+    </div>
+</main>
+</body>
+</html>
