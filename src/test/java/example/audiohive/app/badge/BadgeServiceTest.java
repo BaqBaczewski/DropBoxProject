@@ -209,11 +209,16 @@ public class BadgeServiceTest {
         Instant now = Instant.now();
         // we need a user as creator of the test sound
         User user = userService.createUser("user1", "123", User.Role.USER, now.minus(24, ChronoUnit.HOURS));
+        User user2 = userService.createUser("user2", "123", User.Role.USER, now.minus(24, ChronoUnit.HOURS));
+        User user3 = userService.createUser("user3", "123", User.Role.USER, now.minus(24, ChronoUnit.HOURS));
         // create test sound, 2 hours old
         Sound sound1 = soundService.create("new sound", TestHelper.dummyAudioData(), 4, user, now.minus(2, ChronoUnit.HOURS));
         // add some playbacks to make it realistic
         for (int i = 0; i <= 10; i++) {
-            playbackService.savePlayback(sound1, null, now.minus(30 - i, ChronoUnit.MINUTES));
+            playbackService.savePlayback(sound1, user2, now.minus(30 - i, ChronoUnit.DAYS));
+        }
+        for (int i = 0; i <= 10; i++) {
+            playbackService.savePlayback(sound1, user3, now.minus(30 - i, ChronoUnit.DAYS));
         }
         // get badges for sound
         List<Badge> soundBadges = badgeService.getSoundBadges(sound1, now);
@@ -249,11 +254,12 @@ public class BadgeServiceTest {
         Instant now = Instant.now();
         // we need a user as creator of the test sound
         User user = userService.createUser("user1", "123", User.Role.USER, now.minus(2, ChronoUnit.HOURS));
+        User user2 = userService.createUser("user2", "123", User.Role.USER, now.minus(24, ChronoUnit.HOURS));
         // create test sound, 2 hours old
         Sound sound1 = soundService.create("new sound", TestHelper.dummyAudioData(), 4, user, now.minus(100, ChronoUnit.DAYS));
         // add some playbacks to make it realistic
         for (int i = 0; i <= 25; i++) {
-            playbackService.savePlayback(sound1, null, now.minus(30 - i, ChronoUnit.MINUTES));
+            playbackService.savePlayback(sound1, user2, now.minus(30 - i, ChronoUnit.DAYS));
         }
         // get badges for sound
         List<Badge> soundBadges = badgeService.getSoundBadges(sound1, now);

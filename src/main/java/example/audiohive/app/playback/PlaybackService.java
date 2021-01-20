@@ -7,6 +7,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 
 @Service
 public class PlaybackService {
@@ -23,6 +24,12 @@ public class PlaybackService {
     }
 
     public Playback savePlayback(Sound sound, @Nullable User user, Instant instant) {
+        if (playbackRepository.existsBySoundAndUserAndPlayedAtAfter(sound, user, instant.minus(24, ChronoUnit.HOURS))) {
+            return null;
+        }
+        if (user == null) {
+            return null;
+        }
         Playback p = new Playback(sound, user, instant);
 
         return playbackRepository.save(p);

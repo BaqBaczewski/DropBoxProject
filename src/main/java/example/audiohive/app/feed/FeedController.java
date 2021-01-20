@@ -21,10 +21,10 @@ public class FeedController {
         this.userService = userService;
     }
 
-    @GetMapping("/feed/{userName}")
-    public String Feed(Model model, @PathVariable String userName, @ModelAttribute("sessionUser") User sessionUser, @RequestParam(defaultValue = "0") int page) {
+    @GetMapping("/feed")
+    public String Feed(Model model, @ModelAttribute("sessionUser") User sessionUser, @RequestParam(defaultValue = "0") int page) {
         Pageable pageable = PageRequest.of(page, 10);
-        User user = userService.findByName(userName).orElseThrow();
+        User user = userService.findByName(sessionUser.getName()).orElseThrow();
         model.addAttribute("sounds", feedService.getFeed(user, pageable));
         return "feed";
     }
