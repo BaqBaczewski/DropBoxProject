@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{_layout.html}">
+<head>
+    <title >Followers</title>
+</head>
+<body>
+<main layout:fragment="main">
+
+    <h1 th:text=" ${userName} +' is following:'"></h1>
+
+    <div th:if="${followingList.size()==0}"style="padding: 20px " class="card mb-2">
+        <p style="font-size: medium" >This user don't follow anyone yet.</p>
+    </div>
+
+
+    <div class="list-group" th:each="follower:${followingList}" >
+        <a class="list-group-item" th:text="'@'+ ${follower.name}" th:href="@{/profile/{userName}(userName=${follower.name})}" ></a>
+    </div>
+
+
+
+</main>
+
+</body>
+</html>

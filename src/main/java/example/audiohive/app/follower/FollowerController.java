@@ -3,10 +3,13 @@ package example.audiohive.app.follower;
 import example.audiohive.app.user.User;
 import example.audiohive.app.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Collection;
 
 @Controller
 public class FollowerController {
@@ -27,4 +30,28 @@ public class FollowerController {
         return "redirect:/profile/" + userName;
     }
 
+    @GetMapping("/followers/{userName}")
+    public String followersList(Model model, @PathVariable String userName){
+
+
+       User user = userService.findByName(userName).orElseThrow();
+
+       model.addAttribute("followersList", followerService.findUsersFollowing(user));
+
+
+        return "followers";
+
+    }
+
+    @GetMapping("/following/{userName}")
+    public String followingList(Model model, @PathVariable String userName){
+
+
+        User user = userService.findByName(userName).orElseThrow();
+
+
+        model.addAttribute("followingList",followerService.findUsersFollowedBy(user));
+        return "following";
+
+    }
 }

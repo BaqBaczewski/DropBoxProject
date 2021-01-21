@@ -19,8 +19,10 @@
 
 
     <div class="badge-body">
-            <a class="badge bg-secondary text-light" th:text="'followers '+${user.getFollowers().size()}"></a>
-            <a class="badge bg-secondary text-light" th:text="'following '+${user.getFollowing().size()}"></a>
+            <a class="badge bg-secondary text-light" th:text="'followers '+${user.getFollowers().size()}"  th:href="@{/followers/{userName}(userName=${user.name})}"></a>
+
+            <a class="badge bg-secondary text-light" th:text="'following '+${user.getFollowing().size()}"   th:href="@{/following/{userName}(userName=${user.name})}"></a>
+
     </div>
 
 
