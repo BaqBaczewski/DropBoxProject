@@ -15,9 +15,14 @@ public class UploadSoundDTO {
 
     private MultipartFile file;
 
-    public UploadSoundDTO(String title, MultipartFile file) {
+    @NotBlank
+    @Size(max = 10000, message = "The maximum length of a description is 10000 characters")
+    private String description;
+
+    public UploadSoundDTO(String title, MultipartFile file, String description) {
         this.title = title;
         this.file = file;
+        this.description = description;
     }
 
     public String getTitle() {
@@ -34,5 +39,13 @@ public class UploadSoundDTO {
 
     public void setFile(MultipartFile file) {
         this.file = file;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

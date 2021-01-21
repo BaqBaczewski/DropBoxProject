@@ -73,7 +73,7 @@ public class SoundController {
     @GetMapping("/upload")
     @PreAuthorize("isAuthenticated()")
     public String upload(Model model) {
-        model.addAttribute("sound", new UploadSoundDTO("", null));
+        model.addAttribute("sound", new UploadSoundDTO("", null, ""));
         return "upload";
     }
 
@@ -93,7 +93,7 @@ public class SoundController {
 
         try {
             soundService.create(sound.getTitle(), sound.getFile().getInputStream(), sound.getFile().getSize(),
-                    sessionUser, Instant.now());
+                    sessionUser, Instant.now(), sound.getDescription());
 
             redirectAttributes.addAttribute("uploaded", true);
             return "redirect:/newSounds";
