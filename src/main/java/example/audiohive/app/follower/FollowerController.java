@@ -31,12 +31,11 @@ public class FollowerController {
     }
 
     @GetMapping("/followers/{userName}")
-    public String followersList(Model model, @PathVariable String userName, @RequestParam(defaultValue = "0") int page){
+    public String followersList(Model model, @PathVariable String userName){
 
-       Pageable pageable = PageRequest.of(page, 10);
+
        User user = userService.findByName(userName).orElseThrow();
 
-       Collection<User> followers = followerService.findUsersFollowing(user);
        model.addAttribute("followersList", followerService.findUsersFollowing(user));
 
 
@@ -45,13 +44,12 @@ public class FollowerController {
     }
 
     @GetMapping("/following/{userName}")
-    public String followingList(Model model, @PathVariable String userName, @RequestParam(defaultValue = "0") int page){
+    public String followingList(Model model, @PathVariable String userName){
 
-        Pageable pageable = PageRequest.of(page, 10);
+
         User user = userService.findByName(userName).orElseThrow();
 
 
-        Collection<User> following =followerService.findUsersFollowedBy(user);
         model.addAttribute("followingList",followerService.findUsersFollowedBy(user));
         return "following";
 

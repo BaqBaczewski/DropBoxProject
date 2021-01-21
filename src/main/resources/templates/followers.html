@@ -10,11 +10,15 @@
 
     <h1 th:text="'followers of '+ ${userName}+':'"></h1>
 
-    <div class="list-group" th:each="follower:${followersList}">
+    <div class="list-group" th:each="follower:${followersList}" >
         <a class="list-group-item" th:text="'@'+ ${follower.name}" th:href="@{/profile/{userName}(userName=${follower.name})}"></a>
     </div>
-</main>
+    <div th:if="${followersList.size()==0}" style="padding: 20px " class="card mb-2">
+        <p style="font-size: medium" >This user don't have any followers yet.</p>
+    </div>
 
+
+</main>
 
 </body>
 </html>
