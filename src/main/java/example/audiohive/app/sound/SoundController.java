@@ -44,7 +44,7 @@ public class SoundController {
 
     @GetMapping("/newSounds")
     public String newSounds(Model model, @RequestParam(defaultValue = "0") int page) {
-        Pageable pageable = PageRequest.of(page, 2);
+        Pageable pageable = PageRequest.of(page, 10);
         Page<Sound> soundPage = soundService.findNewSounds(pageable);
         model.addAttribute("sounds", soundPage);
 
