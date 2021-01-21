@@ -46,7 +46,7 @@ public class BadgeServiceTest {
 
         User newUser1 = userService.createUser("user1", "123", User.Role.USER, now.minus(120, ChronoUnit.DAYS));
 
-        soundService.create("new sound", TestHelper.dummyAudioData(), 4, newUser1, now);
+        soundService.create("new sound", TestHelper.dummyAudioData(), 4, newUser1, now, "new description");
 
         List<Badge> artistBadges = badgeService.getUserBadges(newUser1, now);
 
@@ -167,7 +167,7 @@ public class BadgeServiceTest {
         User newUser1 = userService.createUser("user1", "123", User.Role.USER, now.minus(3, ChronoUnit.HOURS));
         User newUser2 = userService.createUser("user2", "123", User.Role.USER, now.minus(2, ChronoUnit.HOURS));
 
-        soundService.create("new sound", TestHelper.dummyAudioData(), 4, newUser1, now);
+        soundService.create("new sound", TestHelper.dummyAudioData(), 4, newUser1, now, "new description");
 
         List<Badge> user1Badges = badgeService.getUserBadges(newUser1, now);
         List<Badge> user2Badges = badgeService.getUserBadges(newUser2, now);
@@ -191,7 +191,7 @@ public class BadgeServiceTest {
         // we need a user as creator of the test sound
         User user = userService.createUser("user1", "123", User.Role.USER, now.minus(24, ChronoUnit.HOURS));
         // create test sound, 2 hours old
-        Sound sound1 = soundService.create("new sound", TestHelper.dummyAudioData(), 4, user, now.minus(2, ChronoUnit.HOURS));
+        Sound sound1 = soundService.create("new sound", TestHelper.dummyAudioData(), 4, user, now.minus(2, ChronoUnit.HOURS), "new description");
         // add some playbacks to make it realistic
         for (int i = 0; i < 9; i++) {
             playbackService.savePlayback(sound1, null, now.minus(30 - i, ChronoUnit.MINUTES));
@@ -212,7 +212,7 @@ public class BadgeServiceTest {
         User user2 = userService.createUser("user2", "123", User.Role.USER, now.minus(24, ChronoUnit.HOURS));
         User user3 = userService.createUser("user3", "123", User.Role.USER, now.minus(24, ChronoUnit.HOURS));
         // create test sound, 2 hours old
-        Sound sound1 = soundService.create("new sound", TestHelper.dummyAudioData(), 4, user, now.minus(2, ChronoUnit.HOURS));
+        Sound sound1 = soundService.create("new sound", TestHelper.dummyAudioData(), 4, user, now.minus(2, ChronoUnit.HOURS), "new description");
         // add some playbacks to make it realistic
         for (int i = 0; i <= 10; i++) {
             playbackService.savePlayback(sound1, user2, now.minus(30 - i, ChronoUnit.DAYS));
@@ -235,7 +235,7 @@ public class BadgeServiceTest {
         // we need a user as creator of the test sound
         User user = userService.createUser("user1", "123", User.Role.USER, now.minus(2, ChronoUnit.HOURS));
         // create test sound, 2 hours old
-        Sound sound1 = soundService.create("new sound", TestHelper.dummyAudioData(), 4, user, now.minus(10, ChronoUnit.DAYS));
+        Sound sound1 = soundService.create("new sound", TestHelper.dummyAudioData(), 4, user, now.minus(10, ChronoUnit.DAYS), "new description");
         // add some playbacks to make it realistic
         for (int i = 0; i <= 25; i++) {
             playbackService.savePlayback(sound1, null, now.minus(30 - i, ChronoUnit.MINUTES));
@@ -256,7 +256,7 @@ public class BadgeServiceTest {
         User user = userService.createUser("user1", "123", User.Role.USER, now.minus(2, ChronoUnit.HOURS));
         User user2 = userService.createUser("user2", "123", User.Role.USER, now.minus(24, ChronoUnit.HOURS));
         // create test sound, 2 hours old
-        Sound sound1 = soundService.create("new sound", TestHelper.dummyAudioData(), 4, user, now.minus(100, ChronoUnit.DAYS));
+        Sound sound1 = soundService.create("new sound", TestHelper.dummyAudioData(), 4, user, now.minus(100, ChronoUnit.DAYS), "new description");
         // add some playbacks to make it realistic
         for (int i = 0; i <= 25; i++) {
             playbackService.savePlayback(sound1, user2, now.minus(30 - i, ChronoUnit.DAYS));

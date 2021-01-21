@@ -22,6 +22,8 @@ public class Sound {
 
     private String title;
 
+    private String description;
+
     @Lob()
     private Blob audioData;
 
@@ -33,11 +35,12 @@ public class Sound {
     public Sound() {
     }
 
-    public Sound(String title, Blob audioData, Instant createdAt, User user) {
+    public Sound(String title, Blob audioData, Instant createdAt, User user, String description) {
         this.title = title;
         this.audioData = audioData;
         this.createdAt = createdAt;
         this.user = user;
+        this.description = description;
     }
 
     public String getId() {
@@ -58,6 +61,10 @@ public class Sound {
 
     public Instant getCreatedAt() {
         return createdAt;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     @Override

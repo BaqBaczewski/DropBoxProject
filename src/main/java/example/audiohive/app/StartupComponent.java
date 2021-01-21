@@ -41,7 +41,7 @@ public class StartupComponent {
         this.soundService = soundService;
     }
 
-    private void createExampleSound(String title, String resourceName, User user) {
+    private void createExampleSound(String title, String resourceName, User user, String description) {
         try {
             String resourcePath = "/example_sounds/" + resourceName;
             URI uri = getClass().getResource(resourcePath).toURI();
@@ -65,7 +65,7 @@ public class StartupComponent {
                 streamLength = resourceFile.length();
             }
 
-            soundService.create(title, inputStream, streamLength, user, Instant.now());
+            soundService.create(title, inputStream, streamLength, user, Instant.now(), description);
         } catch (URISyntaxException | IOException e) {
             throw new RuntimeException("Could not create example sound " + title, e);
         }
@@ -91,10 +91,10 @@ public class StartupComponent {
 
             User exampleUser = userService.createUser("example_sounds", "example123", User.Role.USER);
 
-            createExampleSound("Komiku - Pop City", "pop_city.mp3", exampleUser);
-            createExampleSound("Monplaisir - Pizza", "pizza.mp3", exampleUser);
-            createExampleSound("Tytia Mina Teremina - Rimsky Champagne Aeroplane", "aeroplane.mp3", exampleUser);
-            createExampleSound("XTaKeRuX - Pursuing Darkness", "darkness.mp3", exampleUser);
+            createExampleSound("Komiku - Pop City", "pop_city.mp3", exampleUser, "example description");
+            createExampleSound("Monplaisir - Pizza", "pizza.mp3", exampleUser, "example description");
+            createExampleSound("Tytia Mina Teremina - Rimsky Champagne Aeroplane", "aeroplane.mp3", exampleUser, "example description");
+            createExampleSound("XTaKeRuX - Pursuing Darkness", "darkness.mp3", exampleUser, "example description");
 
         }
     }
