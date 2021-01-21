@@ -22,6 +22,7 @@ public class Sound {
 
     private String title;
 
+    @Lob
     private String description;
 
     @Lob()
