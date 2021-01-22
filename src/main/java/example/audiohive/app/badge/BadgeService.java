@@ -55,16 +55,30 @@ public class BadgeService {
     }
 
     public List<Badge> getSoundBadges(Sound sound, Instant now) {
-        if (sound.getCreatedAt().isBefore(now.minus(10, ChronoUnit.DAYS)) && (playbackService.getPlaybackCount(sound) >= 25)) {
-            return List.of(new Badge("Evergreen", "success"));
-        }
-        if (sound.getCreatedAt().isBefore(now.minus(5, ChronoUnit.DAYS))) {
-            return List.of(new Badge("Oldie", "light"));
+
+        if (sound.getCreatedAt().isAfter(now.minus(24, ChronoUnit.HOURS)) && (playbackService.getPlaybackCount(sound) < 5)) {
+            return List.of(new Badge("Fresh", "info"),new Badge("Underground", "dark"));
         }
         if (sound.getCreatedAt().isAfter(now.minus(24, ChronoUnit.HOURS)) && (playbackService.getPlaybackCount(sound) >= 10)) {
             return List.of(new Badge("Hit", "primary"));
-        } else if (sound.getCreatedAt().isAfter(now.minus(24, ChronoUnit.HOURS))) {
+        }
+        if (sound.getCreatedAt().isAfter(now.minus(24, ChronoUnit.HOURS))) {
             return List.of(new Badge("Fresh", "info"));
+        }
+        if ((playbackService.getPlaybackCount(sound) < 5) && sound.getCreatedAt().isBefore(now.minus(5, ChronoUnit.DAYS))) {
+            return List.of(new Badge("Oldie", "light"), new Badge("Underground", "dark"));
+        }
+
+        if (sound.getCreatedAt().isBefore(now.minus(10, ChronoUnit.DAYS)) && (playbackService.getPlaybackCount(sound) >= 25)) {
+            return List.of(new Badge("Evergreen", "success"));
+        }
+
+        if (sound.getCreatedAt().isBefore(now.minus(5, ChronoUnit.DAYS))) {
+            return List.of(new Badge("Oldie", "light"));
+        }
+
+        if ((playbackService.getPlaybackCount(sound) < 5)) {
+            return List.of(new Badge("Underground", "dark"));
         }
         return List.of();
     }

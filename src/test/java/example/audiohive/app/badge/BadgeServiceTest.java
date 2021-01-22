@@ -191,17 +191,19 @@ public class BadgeServiceTest {
         // we need a user as creator of the test sound
         User user = userService.createUser("user1", "123", User.Role.USER, now.minus(24, ChronoUnit.HOURS));
         // create test sound, 2 hours old
-        Sound sound1 = soundService.create("new sound", TestHelper.dummyAudioData(), 4, user, now.minus(2, ChronoUnit.HOURS), "new description");
+        Sound sound1 = soundService.create("new sound", TestHelper.dummyAudioData(), 5, user, now.minus(2, ChronoUnit.HOURS), "new description");
         // add some playbacks to make it realistic
-        for (int i = 0; i < 9; i++) {
+        for (int i = 5; i <= 5; i++) {
             playbackService.savePlayback(sound1, null, now.minus(30 - i, ChronoUnit.MINUTES));
         }
         // get badges for sound
         List<Badge> soundBadges = badgeService.getSoundBadges(sound1, now);
         // verify it has only "Fresh" badge
-        assertThat(soundBadges).hasSize(1);
+        assertThat(soundBadges).hasSize(2);
         assertThat(soundBadges.get(0).getLabel()).isEqualTo("Fresh");
+//        assertThat(soundBadges.get(0).getLabel()).isEqualTo("Underground");
         assertThat(soundBadges.get(0).getColor()).isEqualTo("info");
+//        assertThat(soundBadges.get(0).getColor()).isEqualTo("dark");
     }
     @Test
     public void testSoundBadgeHit() {
@@ -237,13 +239,13 @@ public class BadgeServiceTest {
         // create test sound, 2 hours old
         Sound sound1 = soundService.create("new sound", TestHelper.dummyAudioData(), 4, user, now.minus(10, ChronoUnit.DAYS), "new description");
         // add some playbacks to make it realistic
-        for (int i = 0; i <= 25; i++) {
+        for (int i = 0; i < 25; i++) {
             playbackService.savePlayback(sound1, null, now.minus(30 - i, ChronoUnit.MINUTES));
         }
         // get badges for sound
         List<Badge> soundBadges = badgeService.getSoundBadges(sound1, now);
         // verify it has only "Oldie" badge
-        assertThat(soundBadges).hasSize(1);
+        assertThat(soundBadges).hasSize(2);
         assertThat(soundBadges.get(0).getLabel()).isEqualTo("Oldie");
         assertThat(soundBadges.get(0).getColor()).isEqualTo("light");
     }
