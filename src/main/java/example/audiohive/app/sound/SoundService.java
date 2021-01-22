@@ -66,32 +66,38 @@ public class SoundService {
         if (currentPage >= 0 && numberOfPages == 5) {
             return List.of(1, 2, 3, 4, 5);
         }
-        // 6 pages active...
-        if (currentPage == 0 && numberOfPages >= 5) { // first page with more than 5 pages active
+        // 6 and more pages active...
+        if (currentPage == 0) { // first page with more than 5 pages active
             return List.of(1, 2, 3, -1, numberOfPages);
         }
-        if (currentPage == 1 && numberOfPages >= 5) { // second page with more than 5 pages active
+        if (currentPage == 1) { // second page with more than 5 pages active
             return List.of(1, 2, 3, 4, -1, numberOfPages);
         }
-
-        if (currentPage == 2 && numberOfPages >= 5) { // third page with more than 5 pages active
+        if (currentPage == 2) { // third page with more than 5 pages active
             return List.of(1, currentPage, currentPage + 1, currentPage + 2, currentPage + 3, -1, numberOfPages);
-
-        } else if (currentPage + 3 == numberOfPages)
-            return List.of(1, currentPage - 1, currentPage, currentPage + 1, currentPage + 2, numberOfPages);
-
-        if (currentPage == 3 && currentPage == numberOfPages - 2) {
-            return List.of(1, currentPage - 1, currentPage, currentPage + 1, numberOfPages);
-
-        } else if (currentPage + 3 == numberOfPages)
-            return List.of(1, currentPage - 1, currentPage, currentPage + 1, currentPage + 2, numberOfPages);
-
-        if (currentPage == 4 && currentPage <= numberOfPages - 1) {
-            return List.of(1, -1, currentPage - 1, currentPage, currentPage + 1, numberOfPages);
-
         }
-
-        if (currentPage == numberOfPages - 1 && numberOfPages != 0) { // when last page reached
+        if (currentPage == 3) {
+            return List.of(1, currentPage - 1, currentPage, currentPage + 1,currentPage+2, currentPage+3,-1, numberOfPages);
+        }
+        if (currentPage >= 4 && currentPage < numberOfPages-4) {
+            return List.of(1, -1, currentPage - 1, currentPage, currentPage + 1, currentPage + 2, currentPage + 3, -1, numberOfPages);
+        }
+        if (currentPage >= 4 && currentPage < numberOfPages - 3) {
+            return List.of(1, -1, currentPage - 1, currentPage, currentPage + 1, currentPage + 2,currentPage+3, numberOfPages);
+        }
+        if (currentPage >= 4 && currentPage == numberOfPages - 3) {
+            return List.of(1, -1, currentPage - 1, currentPage, currentPage + 1, currentPage + 2, numberOfPages);
+        }
+        if (currentPage > 4 && currentPage < numberOfPages - 2) {
+            return List.of(1, -1, currentPage - 1, currentPage, currentPage + 1, currentPage + 2, numberOfPages);
+        }
+        if (currentPage > 4 && currentPage == numberOfPages - 2) {
+            return List.of(1, -1, currentPage - 1, currentPage, currentPage + 1, numberOfPages);
+        }
+        if (currentPage > 4 && currentPage < numberOfPages - 1) {
+            return List.of(1, -1, currentPage - 1, currentPage, currentPage + 1, numberOfPages);
+        }
+        if (numberOfPages == currentPage +1) { // when last page reached
             return List.of(1, -1, currentPage - 1, currentPage, numberOfPages);
         }
         return null;
