@@ -8,10 +8,10 @@ import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 @ConfigurationPropertiesScan("example.audiohive.app.configuration")
-public class AudiohiveApplication {
+public class ImaginariumApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AudiohiveApplication.class, args);
+		SpringApplication.run(ImaginariumApplication.class, args);
 	}
 
 	@Bean
