@@ -55,20 +55,20 @@ public class SoundController {
     }
 
 
-    @GetMapping("/audioData/{soundId}")
-    public ResponseEntity<InputStreamResource> audioData(@PathVariable String soundId) throws SQLException {
-        Optional<Sound> optionalSound = soundService.findById(soundId);
-
-        if (optionalSound.isPresent()) {
-            Blob audioBlob = optionalSound.get().getAudioData();
-
-            return ResponseEntity.ok()
-                    .contentLength(audioBlob.length())
-                    .contentType(new MediaType("audio", "mp3"))
-                    .body(new InputStreamResource(audioBlob.getBinaryStream()));
-        }
-        return ResponseEntity.notFound().build();
-    }
+//    @GetMapping("/audioData/{soundId}")
+//    public ResponseEntity<InputStreamResource> audioData(@PathVariable String soundId) throws SQLException {
+//        Optional<Sound> optionalSound = soundService.findById(soundId);
+//
+//        if (optionalSound.isPresent()) {
+//            Blob audioBlob = optionalSound.get().getAudioData();
+//
+//            return ResponseEntity.ok()
+//                    .contentLength(audioBlob.length())
+//                    .contentType(new MediaType("audio", "mp3"))
+//                    .body(new InputStreamResource(audioBlob.getBinaryStream()));
+//        }
+//        return ResponseEntity.notFound().build();
+//    }
 
     @GetMapping("/upload")
     @PreAuthorize("isAuthenticated()")
