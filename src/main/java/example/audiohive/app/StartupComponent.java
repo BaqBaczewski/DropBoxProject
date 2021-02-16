@@ -2,6 +2,7 @@ package example.audiohive.app;
 
 import example.audiohive.app.configuration.DefaultAdminProperties;
 import example.audiohive.app.sound.SoundService;
+import example.audiohive.app.image.ImageService;
 import example.audiohive.app.user.User;
 import example.audiohive.app.user.UserService;
 import org.slf4j.Logger;
@@ -29,16 +30,18 @@ public class StartupComponent {
     private final UserService userService;
     private final DefaultAdminProperties defaultAdminProperties;
     private final SoundService soundService;
+    private final ImageService imageService;
 
 
     @Autowired
     public StartupComponent(
             UserService userService,
             DefaultAdminProperties defaultAdminProperties,
-            SoundService soundService) {
+            SoundService soundService, ImageService imageService) {
         this.userService = userService;
         this.defaultAdminProperties = defaultAdminProperties;
         this.soundService = soundService;
+        this.imageService = imageService;
     }
 
     private void createExampleSound(String title, String resourceName, User user, String description) {
@@ -69,6 +72,34 @@ public class StartupComponent {
         } catch (URISyntaxException | IOException e) {
             throw new RuntimeException("Could not create example sound " + title, e);
         }
+
+    }
+
+    private void createExampleImages(String title, String resourceName, User user, String description) {
+        try {
+            String resourcePath = "/example_images/" + resourceName;
+            URI uri = getClass().getResource(resourcePath).toURI();
+            InputStream inputStream;
+            long streamLength;
+            if (uri.isOpaque()) {
+                streamLength = 0;
+
+                InputStream skipStream = getClass().getResourceAsStream(resourcePath);
+                while (skipStream.read() != -1) {
+                    streamLength++;
+                }
+
+                inputStream = getClass().getResourceAsStream(resourcePath);
+            } else {
+                File resourceFile = new File(uri);
+                inputStream = new FileInputStream(resourceFile);
+                streamLength = resourceFile.length();
+            }
+
+            imageService.create(title, inputStream, streamLength, user, Instant.now(), description);
+        } catch (URISyntaxException | IOException e) {
+            throw new RuntimeException("Could not create example image " + title, e);
+        }
     }
 
     @EventListener
@@ -96,6 +127,16 @@ public class StartupComponent {
             createExampleSound("Tytia Mina Teremina - Rimsky Champagne Aeroplane", "aeroplane.mp3", exampleUser, "example description");
             createExampleSound("XTaKeRuX - Pursuing Darkness", "darkness.mp3", exampleUser, "example description");
 
+        }
+
+        if (imageService.findNewImages(PageRequest.of(0, 10)).isEmpty()) {
+
+            User exampleUser = userService.createUser("example_images", "example123", User.Role.USER);
+
+            createExampleImages("Example 1", "example1.jpg", exampleUser, "example description");
+            createExampleImages("Example 2", "example2.jpg", exampleUser, "example description");
+            createExampleImages("Example 3", "example3.jpg", exampleUser, "example description");
+            createExampleImages("Example 4", "example4.jpg", exampleUser, "example description");
         }
     }
 }
