@@ -8,6 +8,12 @@
                preload="none"></audio>
     </form>
 </div>
+<div th:fragment="video(videoId)">
+    <form th:action="@{/trackPlayback/{videoId}(videoId=${videoId})}" method="post" class="ui-icon-video">
+        <video controls th:src="@{/videoData/{videoId}(videoId=${videoId})}" class="w-100 rounded" onmouseover="this.play()" onmouseout="this.pause()"
+               preload="active"></video>
+    </form>
+</div>
 
 </body>
 </html>

@@ -4,6 +4,7 @@ import example.audiohive.app.configuration.DefaultAdminProperties;
 import example.audiohive.app.sound.SoundService;
 import example.audiohive.app.user.User;
 import example.audiohive.app.user.UserService;
+import example.audiohive.app.videos.VideoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,16 +30,18 @@ public class StartupComponent {
     private final UserService userService;
     private final DefaultAdminProperties defaultAdminProperties;
     private final SoundService soundService;
+    private final VideoService videoService;
 
 
     @Autowired
     public StartupComponent(
             UserService userService,
             DefaultAdminProperties defaultAdminProperties,
-            SoundService soundService) {
+            SoundService soundService, VideoService videoService) {
         this.userService = userService;
         this.defaultAdminProperties = defaultAdminProperties;
         this.soundService = soundService;
+        this.videoService = videoService;
     }
 
     private void createExampleSound(String title, String resourceName, User user, String description) {
@@ -71,6 +74,37 @@ public class StartupComponent {
         }
     }
 
+    private void createExampleVideo(String title, String resourceName, User user, String description) {
+        try {
+            String resourcePath = "/example_videos/" + resourceName;
+            URI uri = getClass().getResource(resourcePath).toURI();
+            InputStream inputStream;
+            long streamLength;
+            if (uri.isOpaque()) {
+
+                // running in jar
+                streamLength = 0;
+
+                // read once to determine size
+                InputStream skipStream = getClass().getResourceAsStream(resourcePath);
+                while (skipStream.read() != -1) {
+                    streamLength++;
+                }
+
+                inputStream = getClass().getResourceAsStream(resourcePath);
+            } else {
+                // running from file system
+                File resourceFile = new File(uri);
+                inputStream = new FileInputStream(resourceFile);
+                streamLength = resourceFile.length();
+            }
+
+            videoService.create(title, inputStream, streamLength, user, Instant.now(), description);
+        } catch (URISyntaxException | IOException e) {
+            throw new RuntimeException("Could not create example video " + title, e);
+        }
+    }
+
     @EventListener
     @Transactional
     public void handleApplicationReady(ApplicationReadyEvent event) {
@@ -97,5 +131,19 @@ public class StartupComponent {
             createExampleSound("XTaKeRuX - Pursuing Darkness", "darkness.mp3", exampleUser, "example description");
 
         }
+        if (videoService.findVideo(PageRequest.of(0, 5)).isEmpty()) {
+
+            User videoUser = userService.createUser("example_video", "video123", User.Role.USER);
+
+            createExampleVideo("Emotions", "Emotions.mp4", videoUser, "example description");
+            createExampleVideo("Sing", "Ready to sing.mp4", videoUser, "example description");
+            createExampleVideo("Love", "Love.mp4", videoUser, "example description");
+            createExampleVideo("Fire", "Fire.mp4", videoUser, "example description");
+            createExampleVideo("Party Hard", "Party Hard.mp4", videoUser, "example description");
+            createExampleVideo("Baywatch", "Baywatch.mp4", videoUser, "example description");
+
+
+        }
     }
+
 }
