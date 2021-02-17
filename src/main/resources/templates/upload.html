@@ -20,7 +20,7 @@
         </div>
 
         <div class="form-group">
-            <label for="inputFile">Audio file (mp3)</label>
+            <label for="inputFile">AddFile</label>
             <input class="form-control" type="file" required id="inputFile"
                    th:classappend="${#fields.hasErrors('file') ? 'is-invalid' : ''}"
                    th:field="*{file}">

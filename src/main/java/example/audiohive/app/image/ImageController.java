@@ -47,7 +47,7 @@ public class ImageController {
 
             return ResponseEntity.ok()
                     .contentLength(imageBlob.length())
-                    .contentType(new MediaType("image", "jpeg"))
+                    .contentType(new MediaType("image", "jpg"))
                     .body(new InputStreamResource(imageBlob.getBinaryStream()));
         }
         return ResponseEntity.notFound().build();

@@ -9,13 +9,13 @@
 <main layout:fragment="main">
     <h1 th:text="${sound.title}"></h1>
 
-    <div>
-        <span th:each="badge: ${badges}"
-              class="badge"
-              th:classappend="${'badge-' + badge.color}"
-              th:text="${badge.label}"></span>
+<!--    <div>-->
+<!--        <span th:each="badge: ${badges}"-->
+<!--              class="badge"-->
+<!--              th:classappend="${'badge-' + badge.color}"-->
+<!--              th:text="${badge.label}"></span>-->
 
-    </div>
+<!--    </div>-->
 
     <audio th:replace="_fragments :: player(${sound.id})"></audio>
     <pre><strong th:text="${sound.description}"></strong></pre>

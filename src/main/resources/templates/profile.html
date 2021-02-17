@@ -10,12 +10,12 @@
 <main layout:fragment="main">
     <h1 th:text="${'@' + user.name}">Profile</h1>
 
-    <div>
-        <span th:each="badge: ${badges}"
-              class="badge"
-              th:classappend="${'badge-' + badge.color}"
-              th:text="${badge.label}"></span>
-    </div>
+<!--    <div>-->
+<!--        <span th:each="badge: ${badges}"-->
+<!--              class="badge"-->
+<!--              th:classappend="${'badge-' + badge.color}"-->
+<!--              th:text="${badge.label}"></span>-->
+<!--    </div>-->
 
 
     <div class="badge-body">
