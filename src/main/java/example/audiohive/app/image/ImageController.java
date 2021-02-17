@@ -38,9 +38,9 @@ public class ImageController {
         this.imageService = imageService;
     }
 
-    @GetMapping("/imageData/{imageID}")
-    public ResponseEntity<InputStreamResource> imageData(@PathVariable String imageID) throws SQLException {
-        Optional<Image> optionalImage = imageService.findById(imageID);
+    @GetMapping("/imageData/{imageId}")
+    public ResponseEntity<InputStreamResource> imageData(@PathVariable String imageId) throws SQLException {
+        Optional<Image> optionalImage = imageService.findById(imageId);
 
         if (optionalImage.isPresent()) {
             Blob imageBlob = optionalImage.get().getImageData();
@@ -53,7 +53,7 @@ public class ImageController {
         return ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/image/{imageID}")
+    @GetMapping("/image/{imageId}")
     public String imageDetails(Model model, @PathVariable("imageId") Image image) {
         model.addAttribute("image", image);
 
