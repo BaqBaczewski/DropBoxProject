@@ -3,6 +3,8 @@ package example.audiohive.app.image;
 import example.audiohive.app.badge.Badge;
 import example.audiohive.app.badge.BadgeService;
 import example.audiohive.app.playback.PlaybackService;
+import example.audiohive.app.sound.Sound;
+import example.audiohive.app.sound.SoundService;
 import example.audiohive.app.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -36,6 +38,17 @@ public class ImageController {
     @Autowired
     public ImageController(ImageService imageService) {
         this.imageService = imageService;
+    }
+
+    @GetMapping("/newImages")
+    public String newImages(Model model, @RequestParam(defaultValue = "0") int page) {
+        Pageable pageable = PageRequest.of(page, 10);
+        Page<Image> imagePage = imageService.findNewImages(pageable);
+        model.addAttribute("images", imagePage);
+
+        List<Integer> pagination = ImageService.createPagination(imagePage.getNumber(), imagePage.getTotalPages());
+        model.addAttribute("pagination", pagination);
+        return "newImages";
     }
 
     @GetMapping("/imageData/{imageId}")
