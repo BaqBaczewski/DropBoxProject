@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{_layout.html}">
+<head>
+    <title th:text="${video.title}"></title>
+</head>
+<body>
+<main layout:fragment="main">
+    <div class=" shadow p-4 card-body">
+    <h1 th:text="${video.title}"></h1>
+    <video th:replace="_fragments :: video(${video.id})"></video>
+<!--    <pre><strong th:text="${video.description}"></strong></pre>-->
+    <h5 class="card-title">Uploaded: <small th:text="${@dateFormatter.relative(video.getCreatedAt())}"></small></h5>
+    <div>
+        <p> Uploaded by:
+            <a class="card-title"
+               th:href="@{/profile/{userName}(userName=${video.getUser().getName()})}">
+                <strong th:text="${'@' + video.getUser().getName()}"></strong>
+            </a></p>
+    </div>
+    </div>
+
+    <div th:if="${#authorization.expr('hasRole(''ROLE_ADMIN'')') or video.user.name eq #authentication.name}">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">
+            Delete
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        Really delete the video <q th:text="${video.title}"></q>?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-primary" data-dismiss="modal">No</button>
+                        <form th:action="@{/deleteVideo/{videoId}(videoId=${video.id})}" method="post">
+                            <button type="submit" class="btn btn-danger">Yes, delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>
