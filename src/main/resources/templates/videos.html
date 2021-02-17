@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{_layout.html}">
+<head>
+    <title>Videos</title>
+</head>
+<body>
+<main layout:fragment="main">
+    <h1>Videos</h1>
+    <div class="alert alert-success" role="alert" th:if="${param.uploaded}">
+        Thank you for uploading!
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+<!--    <div class="clearfix">-->
+<!--    <div class="gallery">-->
+<!--    <iframe width="350" height="170" src="https://www.youtube.com/embed/l9_-2oG4Cc0" frameborder="1" class="border border-white" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>-->
+
+<!--    <iframe width="350" height="170" src="https://www.youtube.com/embed/onSTZGv4BA4" frameborder="1" class="border border-black" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>-->
+<!--    <iframe width="350" height="170" src="https://www.youtube.com/embed/1eNSWZ4x2ZU" frameborder="1" class="border border-white" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>-->
+<!--    <iframe width="350" height="170" src="https://www.youtube.com/embed/rn4aeSKQ8m8" frameborder="1" class="border border-white" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>-->
+<!--    <iframe width="350" height="170" src="https://www.youtube.com/embed/l9_-2oG4Cc0" frameborder="1" class="border border-white" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>-->
+<!--    <iframe width="350" height="170" src="https://www.youtube.com/embed/l9_-2oG4Cc0" frameborder="1" class="border border-white" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>-->
+<!--    <iframe width="350" height="170" src="https://www.youtube.com/embed/l9_-2oG4Cc0" frameborder="1" class="border border-white" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>-->
+<!--    <iframe width="350" height="170" src="https://www.youtube.com/embed/l9_-2oG4Cc0" frameborder="1" class="border border-white" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>-->
+<!--    <iframe width="350" height="170" src="https://www.youtube.com/embed/l9_-2oG4Cc0" frameborder="1" class="border border-white" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>-->
+<!--    <iframe width="350" height="170" src="https://www.youtube.com/embed/A-G-Z2-QUJ0" frameborder="1" class="border border-white" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>-->
+<!--    </div>-->
+<!--    </div>-->
+
+    <div th:each="video: ${video}" class="card mb-2" >
+        <div class=" shadow p-4 card-body">
+            <h5 class=" card-title" th:text="${video.title}" >Example Video</h5>
+            <video th:replace="_fragments :: video(${video.id})"  ></video>
+            <h5 class="card-title">Uploaded: <small th:text="${@dateFormatter.relative(video.getCreatedAt())}"></small></h5>
+            <div>
+                <p> Uploaded by:
+                    <a class="card-title"
+                       th:href="@{/profile/{userName}(userName=${video.getUser().getName()})}">
+                        <strong th:text="${'@' + video.getUser().getName()}"></strong>
+                    </a></p>
+            </div>
+            <a th:href="@{/video/{videoId}(videoId=${video.id})}" class="btn btn-primary">Details</a>
+        </div>
+    </div>
+<!--    <nav aria-label="...">-->
+
+<!--        <ul class="pagination justify-content-end">-->
+<!--            <li class="page-item disabled"><a class="page-link" th:href="@{/Videos(page=${video.getNumber() - 1})}"-->
+<!--                                              th:if="${video.getNumber() ==0}"  >Previous</a></li>-->
+<!--            <li class="page-item"><a class="page-link" th:href="@{/newSounds(page=${video.getNumber() - 1})}"-->
+<!--                                     th:if="${video.getNumber() !=0}"  >Previous</a></li>-->
+
+<!--            <li  class="page-item" aria-current="page" th:each="page: ${pagination}" th:classappend="${video.getNumber() == page -1 ? 'active' : ''}">-->
+<!--                <a class="page-link"  th:if="${page >= 0}" th:href="@{/Video(page=${page - 1})}"  th:text="${page}">1</a>-->
+<!--                <a class="page-link" th:if="${page == -1}">...</a>-->
+<!--            </li>-->
+
+<!--            <li class="page-item"><a class="page-link" th:href="@{/Video(page=${video.getNumber() + 1})}"-->
+<!--                                     th:if="${video.getNumber()!= video.totalPages -1}">Next</a></li>-->
+<!--            <li class="page-item disabled"><a class="page-link" th:href="@{/Video(page=${video.getNumber() + 1})}"-->
+<!--                                              th:if="${video.getNumber()== video.totalPages -1 }">Next</a></li>-->
+<!--        </ul>-->
+<!--    </nav>-->
+
+</main>
+</body>
+</html>
