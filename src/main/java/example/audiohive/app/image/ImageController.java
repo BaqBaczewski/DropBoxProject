@@ -38,22 +38,22 @@ public class ImageController {
         this.imageService = imageService;
     }
 
-    @GetMapping("/imageData/{imageID}")
-    public ResponseEntity<InputStreamResource> imageData(@PathVariable String imageID) throws SQLException {
-        Optional<Image> optionalImage = imageService.findById(imageID);
+    @GetMapping("/imageData/{imageId}")
+    public ResponseEntity<InputStreamResource> imageData(@PathVariable String imageId) throws SQLException {
+        Optional<Image> optionalImage = imageService.findById(imageId);
 
         if (optionalImage.isPresent()) {
             Blob imageBlob = optionalImage.get().getImageData();
 
             return ResponseEntity.ok()
                     .contentLength(imageBlob.length())
-                    .contentType(new MediaType("image", "jpeg"))
+                    .contentType(new MediaType("image", "jpg"))
                     .body(new InputStreamResource(imageBlob.getBinaryStream()));
         }
         return ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/image/{imageID}")
+    @GetMapping("/image/{imageId}")
     public String imageDetails(Model model, @PathVariable("imageId") Image image) {
         model.addAttribute("image", image);
 

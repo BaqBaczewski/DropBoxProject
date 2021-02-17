@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{_layout.html}">
+<head>
+    <title th:text="${image.title}"></title>
+</head>
+<body>
+<main layout:fragment="main">
+    <h1 th:text="${image.title}"></h1>
+
+    <div>
+         <img th:src="@{/imageData/{imageId}(imageId=${image.id})}"
+              th:alt="${image.description}"/>
+    </div>
+
+    <div>
+        <p> Uploaded by:
+            <a class="card-title"
+               th:href="@{/profile/{userName}(userName=${image.getUser().getName()})}">
+                <strong th:text="${'@' + image.getUser().getName()}"></strong>
+            </a></p>
+    </div>
+
+</main>
+</body>
+</html>
