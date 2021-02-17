@@ -7,6 +7,7 @@
 </head>
 <body>
 <main layout:fragment="main">
+    <div class="card mb-2 shadow p-4 card-body" >
     <h1 th:text="${image.title}"></h1>
 
     <div>
@@ -20,6 +21,7 @@
                th:href="@{/profile/{userName}(userName=${image.getUser().getName()})}">
                 <strong th:text="${'@' + image.getUser().getName()}"></strong>
             </a></p>
+    </div>
     </div>
 
 </main>

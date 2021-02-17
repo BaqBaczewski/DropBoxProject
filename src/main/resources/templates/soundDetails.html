@@ -7,15 +7,10 @@
 </head>
 <body>
 <main layout:fragment="main">
+    <div class="card mb-2 shadow p-4 card-body">
     <h1 th:text="${sound.title}"></h1>
 
-<!--    <div>-->
-<!--        <span th:each="badge: ${badges}"-->
-<!--              class="badge"-->
-<!--              th:classappend="${'badge-' + badge.color}"-->
-<!--              th:text="${badge.label}"></span>-->
 
-<!--    </div>-->
 
     <audio th:replace="_fragments :: player(${sound.id})"></audio>
     <pre><strong th:text="${sound.description}"></strong></pre>
@@ -28,6 +23,7 @@
                th:href="@{/profile/{userName}(userName=${sound.getUser().getName()})}">
                 <strong th:text="${'@' + sound.getUser().getName()}"></strong>
             </a></p>
+    </div>
     </div>
 
     <div th:if="${#authorization.expr('hasRole(''ROLE_ADMIN'')') or sound.user.name eq #authentication.name}">

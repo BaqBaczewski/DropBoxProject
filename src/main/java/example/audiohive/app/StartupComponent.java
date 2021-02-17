@@ -158,10 +158,10 @@ public class StartupComponent {
 
             User exampleUser = userService.createUser("example_sounds", "example123", User.Role.USER);
 
-            createExampleSound("Komiku - Pop City", "pop_city.mp3", exampleUser, "example description");
-            createExampleSound("Monplaisir - Pizza", "pizza.mp3", exampleUser, "example description");
-            createExampleSound("Tytia Mina Teremina - Rimsky Champagne Aeroplane", "aeroplane.mp3", exampleUser, "example description");
-            createExampleSound("XTaKeRuX - Pursuing Darkness", "darkness.mp3", exampleUser, "example description");
+            createExampleSound("Komiku - Pop City", "pop_city.mp3", exampleUser, "My favourite song");
+            createExampleSound("Monplaisir - Pizza", "pizza.mp3", exampleUser, "Makes me hungry");
+            createExampleSound("Tytia Mina Teremina - Rimsky Champagne Aeroplane", "aeroplane.mp3", exampleUser, "Just putting something here");
+            createExampleSound("XTaKeRuX - Pursuing Darkness", "darkness.mp3", exampleUser, "when I am sad, I play this one");
 
         }
 
@@ -169,12 +169,12 @@ public class StartupComponent {
 
             User videoUser = userService.createUser("example_video", "video123", User.Role.USER);
 
-            createExampleVideo("Emotions", "Emotions.mp4", videoUser, "example description");
-            createExampleVideo("Sing", "Ready to sing.mp4", videoUser, "example description");
-            createExampleVideo("Love", "Love.mp4", videoUser, "example description");
-            createExampleVideo("Fire", "Fire.mp4", videoUser, "example description");
-            createExampleVideo("Party Hard", "Party Hard.mp4", videoUser, "example description");
-            createExampleVideo("Baywatch", "Baywatch.mp4", videoUser, "example description");
+            createExampleVideo("Emotions", "Emotions.mp4", videoUser, "wide range of emotions, it's beautiful");
+            createExampleVideo("Sing", "Ready to sing.mp4", videoUser, "had to show you this guys");
+            createExampleVideo("Love", "Love.mp4", videoUser, "Fall in love, forget about whole wolrd");
+            createExampleVideo("Fire", "Fire.mp4", videoUser, "I miss this so much");
+            createExampleVideo("Party Hard", "Party Hard.mp4", videoUser, "Come and party with me!");
+            createExampleVideo("Baywatch", "Baywatch.mp4", videoUser, ";) just having fun");
 
         }
 
