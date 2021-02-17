@@ -13,7 +13,6 @@ import java.time.Instant;
                 @Index(columnList = "createdAt")
         }
 )
-
 public class Image {
 
     @Id
