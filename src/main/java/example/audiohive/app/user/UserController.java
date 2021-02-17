@@ -27,8 +27,10 @@ public class UserController {
 
     @GetMapping("/signup")
     public String register(Model model) {
-        RegistrationDTO registrationDTO = new RegistrationDTO("", LocalDate.now(), "", "");
+
+        RegistrationDTO registrationDTO = new RegistrationDTO(false, "", LocalDate.now(), "", "");
         model.addAttribute("registration", registrationDTO);
+
         return "signup";
     }
 
@@ -46,6 +48,9 @@ public class UserController {
 
         if (userService.userNameTaken(registrationDTO.getName())) {
             bindingResult.addError(new FieldError("registration", "name", "User name already taken"));
+        }
+        if (registrationDTO.getToService() == null) {
+            bindingResult.addError(new FieldError("registration", "toService", "Please agree to Terms of Service to Sign up"));
         }
 
         String allowedCharacters = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789_";

@@ -70,4 +70,10 @@
 <script th:src="@{/webjars/bootstrap/4.5.2/dist/js/bootstrap.js}"></script>
 <script th:src="@{/player.js}"></script>
 </body>
+<footer>
+    <li class="nav-item"
+        th:classappend="${#request.requestURI == '/termsOfService' ? 'active':''}">
+        <a class="nav-link" th:href="@{/termsOfService}">Terms of Service</a></li>
+
+</footer>
 </html>

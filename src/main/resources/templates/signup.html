@@ -37,6 +37,13 @@
                    th:field="*{password2}">
             <div class="invalid-feedback" th:if="${#fields.hasErrors('password2')}" th:errors="*{password2}"></div>
         </div>
+        <div class="form-group">
+            <input type="checkbox" th:field="*{toService}" id="toService"
+                   th:classappend="${#fields.hasErrors('toService') ? 'is-invalid' : ''}">
+            I agree to <a href="/termsOfService" target="_blank">Terms of Service</a>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('toService')}" th:errors="*{toService}"></div>
+        </div>
+        <br>
         <div class="control">
             <button class="btn btn-primary" type="submit">Submit</button>
         </div>
