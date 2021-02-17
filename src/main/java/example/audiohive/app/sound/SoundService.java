@@ -59,12 +59,17 @@ public class SoundService {
             return List.of(1, 2, 3, 4);
         }
         // only 5 pages active
-        if (currentPage == 0 && numberOfPages == 5) {
-            return List.of(1, 2, 3, -1, 5);
-        } else if (currentPage == 4 && numberOfPages ==5)
-            return List.of(1, -1, 3, 4, 5);
-        if (currentPage >= 0 && numberOfPages == 5) {
-            return List.of(1, 2, 3, 4, 5);
+        if (currentPage == 0) {
+            return List.of(1, 2, 3, -1, numberOfPages);
+        }
+        if (currentPage == 2) {
+            return List.of(1, 2, 3, 4, 5, numberOfPages);
+        }
+        if (currentPage == 3) {
+            return List.of(1, 2, 3, 4, 5, numberOfPages);
+        }
+        if (currentPage == 4) {
+            return List.of(1, -1, 3, 4, 5, numberOfPages);
         }
         // 6 and more pages active...
         if (currentPage == 0) { // first page with more than 5 pages active
@@ -73,10 +78,10 @@ public class SoundService {
         if (currentPage == 1) { // second page with more than 5 pages active
             return List.of(1, 2, 3, 4, -1, numberOfPages);
         }
-        if (currentPage == 2) { // third page with more than 5 pages active
+        if (currentPage == 2 && numberOfPages == 5) { // third page with more than 5 pages active
             return List.of(1, currentPage, currentPage + 1, currentPage + 2, currentPage + 3, -1, numberOfPages);
         }
-        if (currentPage == 3) {
+        if (currentPage == 3 && numberOfPages > 5 ) {
             return List.of(1, currentPage - 1, currentPage, currentPage + 1,currentPage+2, currentPage+3,-1, numberOfPages);
         }
         if (currentPage >= 4 && currentPage < numberOfPages-4) {
