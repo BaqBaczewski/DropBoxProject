@@ -15,30 +15,41 @@
     </div>
 
     <div class="jumbotron border border-secondary">
-        <h1 class="display-4 text-primary font-weight-bold">Imaginarium</h1>
-        <p class="lead">Your world in images!</p>
+        <h1 class="display-4 text-primary font-weight-bold">IMAGINARIUM</h1>
+        <p class="lead">Share your emotions!</p>
+
     </div>
 
     <div class="row">
         <div class="col-md">
-            <h2>New Sounds</h2>
+            <h2>Sounds</h2>
             <div class="list-group">
                 <a class="list-group-item list-group-item-action"
                    th:each="sound: ${newSounds}"
                    th:href="@{/sound/{soundId}(soundId=${sound.id})}">
                     <strong th:text="${sound.title}"></strong>
-                    <small th:text="${@dateFormatter.relative(sound.createdAt)}"></small>
                 </a>
             </div>
         </div>
         <div class="col-md">
-            <h2>New Users</h2>
+            <h2>Images</h2>
             <div class="list-group">
                 <a class="list-group-item list-group-item-action"
-                   th:each="user: ${newUsers}"
-                   th:href="@{/profile/{userName}(userName=${user.name})}">
-                    <strong th:text="${'@' + user.name}"></strong>
-                    <small th:text="${@dateFormatter.relative(user.createdAt)}"></small>
+                   th:each="image: ${newImages}"
+                   th:href="@{/image/{imageId}(imageId=${image.id})}">
+                    <strong th:text="${image.title}"></strong>
+                </a>
+            </div>
+        </div>
+        <div class="col-md">
+            <h2>Videos</h2>
+            <div class="list-group">
+                <a class="jumbotron border border-secondary">
+                    <a class="list-group-item list-group-item-action"
+                       th:each="Video: ${newVideo}"
+                       th:href="@{/video/{videoId}(VideoId=${video.id})}">
+                        <strong th:text="${'@' + video.title}"></strong>
+                    </a>
                 </a>
             </div>
         </div>

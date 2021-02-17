@@ -32,7 +32,6 @@ import java.util.Optional;
 public class SoundController {
 
     private final SoundService soundService;
-
     private final PlaybackService playbackService;
     private final BadgeService badgeService;
 
