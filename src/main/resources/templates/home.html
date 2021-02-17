@@ -44,13 +44,11 @@
         <div class="col-md">
             <h2>Videos</h2>
             <div class="list-group">
-                <a class="jumbotron border border-secondary">
                     <a class="list-group-item list-group-item-action"
-                       th:each="Video: ${newVideo}"
-                       th:href="@{/video/{videoId}(VideoId=${video.id})}">
-                        <strong th:text="${'@' + video.title}"></strong>
+                       th:each="videos: ${videos}"
+                       th:href="@{/video/{videoId}(videoId=${videos.id})}">
+                        <strong th:text="${videos.title}"></strong>
                     </a>
-                </a>
             </div>
         </div>
     </div>
