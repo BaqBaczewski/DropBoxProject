@@ -27,6 +27,7 @@
                    th:each="sound: ${newSounds}"
                    th:href="@{/sound/{soundId}(soundId=${sound.id})}">
                     <strong th:text="${sound.title}"></strong>
+                    <audio th:replace="_fragments :: player(${sound.id})"></audio>
                 </a>
             </div>
         </div>
@@ -36,8 +37,8 @@
                 <a class="list-group-item list-group-item-action"
                    th:each="image: ${newImages}"
                    th:href="@{/image/{imageId}(imageId=${image.id})}">
-                    <img th:src="@{/imageData/{imageId}(imageId=${image.id})}" width="350" height="180" ></img>
                     <strong th:text="${image.title}"></strong>
+                    <img th:src="@{/imageData/{imageId}(imageId=${image.id})}" width="350" height="180" ></img>
                 </a>
             </div>
         </div>
@@ -47,8 +48,8 @@
                     <a class="list-group-item list-group-item-action"
                        th:each="videos: ${videos}"
                        th:href="@{/video/{videoId}(videoId=${videos.id})}">
-                        <video th:each="videos: ${videos}" th:href="@{/video/{videoId}(videoId=${videos.id})}" width="350" height="180" controls="controls" autoplay></video>
                         <strong th:text="${videos.title}"></strong>
+                        <video type="video/mp4" th:src="@{/videoData/{videoId}(videoId=${videos.id})}" width="350" height="180" controls="controls" onmouseover="this.play()" onmouseout="this.pause()"></video>
                     </a>
             </div>
         </div>
