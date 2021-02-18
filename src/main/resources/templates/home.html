@@ -17,7 +17,6 @@
     <div class="jumbotron border border-secondary">
         <h1 class="display-4 text-primary font-weight-bold">IMAGINARIUM</h1>
         <p class="lead">Share your emotions!</p>
-
     </div>
 
     <div class="row">
@@ -37,6 +36,7 @@
                 <a class="list-group-item list-group-item-action"
                    th:each="image: ${newImages}"
                    th:href="@{/image/{imageId}(imageId=${image.id})}">
+                    <img th:src="@{/imageData/{imageId}(imageId=${image.id})}" width="350" height="180" ></img>
                     <strong th:text="${image.title}"></strong>
                 </a>
             </div>
@@ -47,6 +47,7 @@
                     <a class="list-group-item list-group-item-action"
                        th:each="videos: ${videos}"
                        th:href="@{/video/{videoId}(videoId=${videos.id})}">
+                        <video th:each="videos: ${videos}" th:href="@{/video/{videoId}(videoId=${videos.id})}" width="350" height="180" controls="controls" autoplay></video>
                         <strong th:text="${videos.title}"></strong>
                     </a>
             </div>
