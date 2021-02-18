@@ -13,14 +13,12 @@
     <div>
          <img th:src="@{/imageData/{imageId}(imageId=${image.id})}"
               th:alt="${image.description}"/>
+        <pre><strong th:text="${image.description}"></strong></pre>
     </div>
 
     <div>
-        <p> Uploaded by:
-            <a class="card-title"
-               th:href="@{/profile/{userName}(userName=${image.getUser().getName()})}">
-                <strong th:text="${'@' + image.getUser().getName()}"></strong>
-            </a></p>
+        <h6 class="card-title">Uploaded: <a th:text="${@dateFormatter.relative(image.getCreatedAt())}"></a>, by: <a class="card-title"
+        th:href="@{/profile/{userName}(userName=${image.getUser().getName()})}"><strong th:text="${'@' + image.getUser().getName()}"></strong>        </a></h6>
     </div>
     </div>
 
