@@ -26,6 +26,7 @@
                 <a class="list-group-item list-group-item-action"
                    th:each="sound: ${newSounds}"
                    th:href="@{/sound/{soundId}(soundId=${sound.id})}">
+                    <audio th:replace="_fragments :: player(${sound.id})"></audio>
                     <strong th:text="${sound.title}"></strong>
                 </a>
             </div>
@@ -47,7 +48,7 @@
                     <a class="list-group-item list-group-item-action"
                        th:each="videos: ${videos}"
                        th:href="@{/video/{videoId}(videoId=${videos.id})}">
-                        <video th:each="videos: ${videos}" th:href="@{/video/{videoId}(videoId=${videos.id})}" width="350" height="180" controls="controls" autoplay></video>
+                        <video type="video/mp4" th:src="@{/videoData/{videoId}(videoId=${videos.id})}" width="350" height="180" controls="controls" onmouseover="this.play()" onmouseout="this.pause()"></video>
                         <strong th:text="${videos.title}"></strong>
                     </a>
             </div>
