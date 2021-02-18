@@ -1,7 +1,9 @@
 package example.audiohive.app.user;
 
 import example.audiohive.app.follower.Follower;
+import example.audiohive.app.image.Image;
 import example.audiohive.app.sound.Sound;
+import example.audiohive.app.videos.Video;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -38,6 +40,12 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private Set<Sound> sounds = Collections.emptySet();
+
+    @OneToMany(mappedBy = "user")
+    private Set<Image> images = Collections.emptySet();
+
+    @OneToMany(mappedBy = "user")
+    private Set<Video> videos = Collections.emptySet();
 
     @OneToMany(mappedBy = "followedUser")
     private Set<Follower> followers = Collections.emptySet();
@@ -78,6 +86,10 @@ public class User {
     public Set<Sound> getSounds() {
         return sounds;
     }
+
+    public Set<Image> getImages() {return images;}
+
+    public Set<Video> getVideos() {return videos;}
 
     public Set<Follower> getFollowers() { return followers; }
 
