@@ -69,38 +69,38 @@ public class SoundController {
         return ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/upload")
-    @PreAuthorize("isAuthenticated()")
-    public String upload(Model model) {
-        model.addAttribute("sound", new UploadSoundDTO("", null, ""));
-        return "upload";
-    }
-
-    @PostMapping("/upload")
-    @PreAuthorize("isAuthenticated()")
-    public String upload(@Valid @ModelAttribute ("sound") UploadSoundDTO sound, BindingResult bindingResult, @ModelAttribute("sessionUser") User sessionUser,
-                         RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()){
-            return "upload";
-        }
-        if (!sound.getFile().getContentType().equals("audio/mpeg")){
-            bindingResult.addError(new FieldError("sound", "file","Error!!! Incorrect file type."));
-        }
-        if (bindingResult.hasErrors()){
-            return "upload";
-        }
-
-        try {
-            soundService.create(sound.getTitle(), sound.getFile().getInputStream(), sound.getFile().getSize(),
-                    sessionUser, Instant.now(), sound.getDescription());
-
-            redirectAttributes.addAttribute("uploaded", true);
-            return "redirect:/newSounds";
-        } catch (IOException e) {
-            bindingResult.addError(new ObjectError("file", "Can't read file"));
-            return "upload";
-        }
-    }
+//    @GetMapping("/upload")
+//    @PreAuthorize("isAuthenticated()")
+//    public String upload(Model model) {
+//        model.addAttribute("sound", new UploadSoundDTO("", null, ""));
+//        return "upload";
+//    }
+//
+//    @PostMapping("/upload")
+//    @PreAuthorize("isAuthenticated()")
+//    public String upload(@Valid @ModelAttribute ("sound") UploadSoundDTO sound, BindingResult bindingResult, @ModelAttribute("sessionUser") User sessionUser,
+//                         RedirectAttributes redirectAttributes) {
+//        if (bindingResult.hasErrors()){
+//            return "upload";
+//        }
+//        if (!sound.getFile().getContentType().equals("audio/mpeg")){
+//            bindingResult.addError(new FieldError("sound", "file","Error!!! Incorrect file type."));
+//        }
+//        if (bindingResult.hasErrors()){
+//            return "upload";
+//        }
+//
+//        try {
+//            soundService.create(sound.getTitle(), sound.getFile().getInputStream(), sound.getFile().getSize(),
+//                    sessionUser, Instant.now(), sound.getDescription());
+//
+//            redirectAttributes.addAttribute("uploaded", true);
+//            return "redirect:/newSounds";
+//        } catch (IOException e) {
+//            bindingResult.addError(new ObjectError("file", "Can't read file"));
+//            return "upload";
+//        }
+//    }
 
     @GetMapping("/sound/{soundId}")
     public String soundDetails(Model model, @PathVariable("soundId") Sound sound) {
