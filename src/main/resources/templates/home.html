@@ -13,19 +13,30 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
+    <style>
+        h1 {
+            text-shadow: 2px 2px #000000;
+        }
+        h2 {
+            text-shadow: 1px 1px #ffffff;
+        }
 
-    <div class="jumbotron border border-secondary">
-        <h1 class="display-4 text-primary font-weight-bold">IMAGINARIUM</h1>
+    </style>
+
+    <div class="jumbotron border border-secondary" style="padding-top:16px; padding-bottom: 16px ">
+        <h1 class="display-4 text-primary  font-weight-bold ">IMAGINARIUM</h1>
         <p class="lead">Share your emotions!</p>
     </div>
 
-    <div class="row">
+    <div class="row ">
         <div class="col-md">
+
             <h2>Sounds</h2>
             <div class="list-group">
                 <a class="list-group-item list-group-item-action"
                    th:each="sound: ${newSounds}"
                    th:href="@{/sound/{soundId}(soundId=${sound.id})}">
+                    <audio th:replace="_fragments :: player(${sound.id})"></audio>
                     <strong th:text="${sound.title}"></strong>
                     <audio th:replace="_fragments :: player(${sound.id})"></audio>
                 </a>
