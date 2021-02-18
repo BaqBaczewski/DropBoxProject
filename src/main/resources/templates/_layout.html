@@ -75,6 +75,11 @@
 <script th:src="@{/player.js}"></script>
 </body>
 <footer>
+    <style>
+        footer {
+            text-shadow: 1px 1px #000000;
+        }
+    </style>
     <li class="nav-item"
         th:classappend="${#request.requestURI == '/termsOfService' ? 'active':''}">
        <b><a class="nav-link" style="color:white; text-align:center;"  th:href="@{/termsOfService}">Terms of Service</a></b></li>

@@ -8,10 +8,20 @@
 </head>
 <body>
 <main layout:fragment="main">
-    <h1>Upload Sound</h1>
-    <form th:action="@{/upload}" th:object="${file}" method="post" enctype="multipart/form-data">
+    <style>
+        h1 {
+            text-shadow: 1px 1px #ffffff;
+        }
+        label {
+            color: white;
+            text-shadow: 1px 1px #000000;
+        }
 
-        <div class="form-group">
+    </style>
+    <h1><strong>Upload file</strong></h1>
+    <form th:action="@{/upload}" th:object="${file}" method="post" enctype="multipart/form-data">
+<br>
+        <div class="form-group font-weight-bold">
             <label for="inputTitle">Title</label>
             <input class="form-control" type="text" required id="inputTitle"
                    th:classappend="${#fields.hasErrors('title') ? 'is-invalid' : ''}"
@@ -19,15 +29,15 @@
             <div class="invalid-feedback" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
         </div>
 
-        <div class="form-group">
-            <label for="inputFile">AddFile</label>
+        <div class="form-group font-weight-bold">
+            <label for="inputFile">Add File</label>
             <input class="form-control" type="file" required id="inputFile"
                    th:classappend="${#fields.hasErrors('file') ? 'is-invalid' : ''}"
                    th:field="*{file}">
             <div class="invalid-feedback" th:if="${#fields.hasErrors('file')}" th:errors="*{file}"></div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group font-weight-bold">
             <label for="inputDescription">Description</label>
 
             <textarea class="form-control" type="text" required id="inputDescription"
