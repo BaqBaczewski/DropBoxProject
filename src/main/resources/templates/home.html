@@ -36,7 +36,6 @@
                 <a class="list-group-item list-group-item-action"
                    th:each="sound: ${newSounds}"
                    th:href="@{/sound/{soundId}(soundId=${sound.id})}">
-                    <audio th:replace="_fragments :: player(${sound.id})"></audio>
                     <strong th:text="${sound.title}"></strong>
                     <audio th:replace="_fragments :: player(${sound.id})"></audio>
                 </a>
