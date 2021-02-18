@@ -18,7 +18,11 @@
             text-shadow: 2px 2px #000000;
         }
         h2 {
-            text-shadow: 1px 1px #ffffff;
+            color: white;
+            text-shadow: 1px 1px #030303;
+            font-weight: bold;
+
+
         }
 
     </style>
@@ -59,7 +63,7 @@
                        th:each="videos: ${videos}"
                        th:href="@{/video/{videoId}(videoId=${videos.id})}">
                         <strong th:text="${videos.title}"></strong>
-                        <video type="video/mp4" th:src="@{/videoData/{videoId}(videoId=${videos.id})}" width="350" height="180" controls="controls" onmouseover="this.play()" onmouseout="this.pause()"></video>
+                        <video type="video/mp4" th:src="@{/videoData/{videoId}(videoId=${videos.id})}" width="350" height="180" onmouseover="this.play()" onmouseout="this.pause()"></video>
                     </a>
             </div>
         </div>

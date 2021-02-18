@@ -10,7 +10,9 @@
 <main layout:fragment="main">
     <style>
         h1 {
-            text-shadow: 1px 1px #ffffff;
+            color: white;
+            text-shadow: 1px 1px #030303;
+            font-weight: bold;
         }
         label {
             color: white;
@@ -18,7 +20,7 @@
         }
 
     </style>
-    <h1><strong>Upload file</strong></h1>
+    <h1>Upload file</h1>
     <form th:action="@{/upload}" th:object="${file}" method="post" enctype="multipart/form-data">
 <br>
         <div class="form-group font-weight-bold">
