@@ -6,7 +6,13 @@
     <title>Images</title>
 </head>
 <body>
+
 <main layout:fragment="main">
+    <style>
+        h1 {
+            text-shadow: 1px 1px #ffffff;
+        }
+    </style>
     <h1>Images</h1>
     <div class="alert alert-success" role="alert" th:if="${param.uploaded}">
         Thank you for uploading!
@@ -17,15 +23,12 @@
     <div th:each="image: ${images}" class="card mb-2">
         <div class="card-body">
             <h5 class="card-title" th:text="${image.title}">Example Image</h5>
-            <h5 class="card-title">Uploaded: <small th:text="${@dateFormatter.relative(image.getCreatedAt())}"></small></h5>
+
             <img th:src="@{/imageData/{imageId}(imageId=${image.id})}" ></img>
-            <div>
-                <p> Uploaded by:
-                    <a class="card-title"
-                       th:href="@{/profile/{userName}(userName=${image.getUser().getName()})}">
-                        <strong th:text="${'@' + image.getUser().getName()}"></strong>
-                    </a></p>
-            </div>
+            <h6 class="card-title">Uploaded: <a th:text="${@dateFormatter.relative(image.getCreatedAt())}"></a>, by: <a class="card-title"
+            th:href="@{/profile/{userName}(userName=${image.getUser().getName()})}">
+            <strong th:text="${'@' + image.getUser().getName()}"></strong>
+            </a></h6>
             <a th:href="@{/image/{imageId}(imageId=${image.id})}" class="btn btn-primary">Details</a>
         </div>
     </div>
