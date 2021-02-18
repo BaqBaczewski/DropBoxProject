@@ -26,9 +26,7 @@
 
             <img th:src="@{/imageData/{imageId}(imageId=${image.id})}" ></img>
             <h6 class="card-title">Uploaded: <a th:text="${@dateFormatter.relative(image.getCreatedAt())}"></a>, by: <a class="card-title"
-            th:href="@{/profile/{userName}(userName=${image.getUser().getName()})}">
-            <strong th:text="${'@' + image.getUser().getName()}"></strong>
-            </a></h6>
+            th:href="@{/profile/{userName}(userName=${image.getUser().getName()})}"><strong th:text="${'@' + image.getUser().getName()}"></strong></a></h6>
             <a th:href="@{/image/{imageId}(imageId=${image.id})}" class="btn btn-primary">Details</a>
         </div>
     </div>
