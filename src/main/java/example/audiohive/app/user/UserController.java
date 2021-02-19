@@ -1,19 +1,22 @@
 package example.audiohive.app.user;
 
+import example.audiohive.app.videos.Video;
+import example.audiohive.app.videos.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -91,4 +94,16 @@ public class UserController {
         model.addAttribute("error", !error.isEmpty());
         return "login";
     }
+    @GetMapping("/users")
+    public String users(Model model, @RequestParam(defaultValue = "0") int page) {
+        Pageable pageable = PageRequest.of(page, 10);
+        Page<User> userPage = userService.findUser(pageable);
+        model.addAttribute("users", userPage);
+
+        List<Integer> pagination = UserService.createPagination(userPage.getNumber(), userPage.getTotalPages());
+        model.addAttribute("pagination", pagination);
+
+        return "users";
+    }
+
 }
