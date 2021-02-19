@@ -43,7 +43,9 @@
 
         <div>
 
-            <center><h3 th:if="${user.getSounds().isEmpty()}" th:text="${'This user has not uploaded any sounds.'}"></h3></center>
+            <center><h3><span th:if="${user.getSounds().isEmpty()}" th:text="${'This user has not uploaded any sounds.'}"></span></h3></center>
+            <center><h3><span th:if="${user.getImages().isEmpty()}" th:text="${'This user has not uploaded any images.'}"></span></h3></center>
+            <center><h3><span th:if="${user.getVideos().isEmpty()}" th:text="${'This user has not uploaded any videos.'}"></span></h3></center>
 
          <br>
         </div>
