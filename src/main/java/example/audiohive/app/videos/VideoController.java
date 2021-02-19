@@ -75,39 +75,6 @@ public class VideoController {
         return ResponseEntity.notFound().build();
     }
 
-//    @GetMapping("/upload")
-//    @PreAuthorize("isAuthenticated()")
-//    public String upload(Model model) {
-//        model.addAttribute("video", new UploadVideoDTO("", null, ""));
-//        return "upload";
-//    }
-
-//    @PostMapping("/upload")
-//    @PreAuthorize("isAuthenticated()")
-//    public String upload(@Valid @ModelAttribute ("sound") UploadVideoDTO video, BindingResult bindingResult, @ModelAttribute("sessionUser") User sessionUser,
-//                         RedirectAttributes redirectAttributes) {
-//        if (bindingResult.hasErrors()){
-//            return "upload";
-//        }
-//        if (!video.getFile().getContentType().equals("video/mp4")){
-//            bindingResult.addError(new FieldError("video", "file","Error!!! Incorrect file type."));
-//        }
-//        if (bindingResult.hasErrors()){
-//            return "upload";
-//        }
-//
-//        try {
-//            videoService.create(video.getTitle(), video.getFile().getInputStream(), video.getFile().getSize(),
-//                    sessionUser, Instant.now(), video.getDescription());
-//
-//            redirectAttributes.addAttribute("uploaded", true);
-//            return "redirect:/Video";
-//        } catch (IOException e) {
-//            bindingResult.addError(new ObjectError("file", "Can't read file"));
-//            return "upload";
-//        }
-//    }
-
     @GetMapping("/video/{videoId}")
     public String videoDetails(Model model, @PathVariable("videoId") Video video) {
         model.addAttribute("video", video);

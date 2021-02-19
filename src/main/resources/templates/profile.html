@@ -77,7 +77,7 @@
         <div class="card-body">
             <div>
               <h5 class="card-title" th:text="${video.title}">Example Video</h5>
-              <video type="video/mp4" th:src="@{/videoData/{videoId}(videoId=${video.id})}" width="350" height="180" controls="controls" onmouseover="this.play()" onmouseout="this.pause()"></video>
+              <video type="video/mp4" th:src="@{/videoData/{videoId}(videoId=${video.id})}" width="350" height="180" onmouseover="this.play()" onmouseout="this.pause()"></video>
                 <h6 class="card-title">Uploaded: <small th:text="${@dateFormatter.relative(video.getCreatedAt())}"></small></h6>
             </div>
             <div>

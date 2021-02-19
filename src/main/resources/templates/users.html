@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{_layout.html}">
+<head>
+    <title>Home page</title>
+</head>
+<body>
+<main layout:fragment="main">
+    <style>
+        h1 {
+            color: white;
+            text-shadow: 1px 1px #030303;
+            font-weight: bold;
+        }
+    </style>
+        <div class="col-md">
+            <h1>Users</h1>
+            <div class="list-group">
+                <a class="list-group-item list-group-item-action"
+                   th:each="user: ${users}"
+                   th:href="@{/profile/{userName}(userName=${user.name})}">
+                    <strong  th:href="@{/profile/{userName}(userName=${user.name})}" th:text="${'@' + user.name}"></strong>
+                    <small th:text="${@dateFormatter.relative(user.createdAt)}"></small>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <nav>
+        <ul class="pagination justify-content-end">
+            <li class="page-item"><a class="page-link" th:href="@{/users(page=${users.getNumber() - 1})}"
+                                     th:if="${users.getNumber()!=0}">Previous</a></li>
+            <li class="page-item"><a class="page-link" th:href="@{/users(page=${users.getNumber() + 1})}"
+                                     th:if="${users.getNumber()!= users.totalPages -1}">Next</a></li>
+        </ul>
+    </nav>
+</main>
+</body>
+</html>
