@@ -3,10 +3,13 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{_layout.html}">
 <head>
-    <title>Home page</title>
+    <title>Imaginarium</title>
 </head>
 <body>
 <main layout:fragment="main">
+
+
+
     <div class="alert alert-warning" role="alert" th:if="${param.soundDeleted}">
         The file was deleted!
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -22,46 +25,54 @@
             text-shadow: 1px 1px #030303;
             font-weight: bold;
         }
+        </style>
 
-    </style>
 
-    <div class="jumbotron border border-secondary" style="padding-top:16px; padding-bottom: 16px ">
+
+    <div class="jumbotron border border-secondary" style="padding-top:16px; padding-bottom: 16px">
         <h1 class="display-4 text-primary  font-weight-bold font-stretch:extra-expanded">IMAGINARIUM</h1>
         <p class="lead">Share your emotions!</p>
     </div>
 
-    <div class="row ">
-        <div class="col-md">
+        <div class="row">
 
+            <div class="col-md-4">
             <h2>Sounds</h2>
             <div class="list-group">
-                <a class="list-group-item list-group-item-action"
+                <a class="list-group-item list-group-item-action" style="height: 200px; padding: 15px 15px;"
                    th:each="sound: ${newSounds}"
                    th:href="@{/sound/{soundId}(soundId=${sound.id})}">
                     <strong th:text="${sound.title}"></strong>
-                    <audio th:replace="_fragments :: player(${sound.id})"></audio>
+
+                    <img type="gif" src="https://media.giphy.com/media/fSwS5th9ptwiKcGhDU/giphy.gif" loop=infinite width="318" height="90"></img>
+
+                    <audio class=" list-group-item align-bottom" th:replace="_fragments :: player(${sound.id})" ></audio>
                 </a>
             </div>
         </div>
-        <div class="col-md">
+
+            <div class="col-md-4">
             <h2>Images</h2>
             <div class="list-group">
-                <a class="list-group-item list-group-item-action"
+                <a class="list-group-item list-group-item-action" style="height: 200px; padding: 15px 15px;"
                    th:each="image: ${newImages}"
                    th:href="@{/image/{imageId}(imageId=${image.id})}">
                     <strong th:text="${image.title}"></strong>
-                    <img th:src="@{/imageData/{imageId}(imageId=${image.id})}" width="350" height="180" ></img>
+                    <br>
+                    <img th:src="@{/imageData/{imageId}(imageId=${image.id})}" width="318" height="150"></img>
                 </a>
             </div>
         </div>
-        <div class="col-md">
+
+            <div class="col-md-4">
             <h2>Videos</h2>
             <div class="list-group">
-                    <a class="list-group-item list-group-item-action"
+                    <a class="list-group-item list-group-item-action" style="height: 200px; "
                        th:each="videos: ${videos}"
                        th:href="@{/video/{videoId}(videoId=${videos.id})}">
                         <strong th:text="${videos.title}"></strong>
-                        <video type="video/mp4" th:src="@{/videoData/{videoId}(videoId=${videos.id})}" width="350" height="180" onmouseover="this.play()" onmouseout="this.pause()"></video>
+                        <br>
+                        <video type="video/mp4" th:src="@{/videoData/{videoId}(videoId=${videos.id})}" width="318" height="150" onmouseover="this.play()" onmouseout="this.pause()"></video>
                     </a>
             </div>
         </div>

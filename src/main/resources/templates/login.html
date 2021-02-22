@@ -7,6 +7,18 @@
 </head>
 <body>
 <main layout:fragment="main">
+    <style>
+        h1 {
+            color: white;
+            text-shadow: 1px 1px #030303;
+            font-weight: bold;
+        }
+        label {
+            color: white;
+            text-shadow: 1px 1px #000000;
+        }
+
+    </style>
     <h1>Login</h1>
     <div class="alert alert-info" th:if="${param.logout}">
         You are now logged out.
@@ -21,13 +33,13 @@
         </button>
     </div>
     <form th:action="@{/login}" method="post">
-        <div class="form-group">
+        <div class="form-group font-weight-bold">
             <label for="inputName">Name</label>
             <input class="form-control" type="text" required id="inputName"
                    th:classappend="${param.error} ? 'is-invalid'"
                    name="username">
         </div>
-        <div class="form-group">
+        <div class="form-group font-weight-bold">
             <label for="inputPassword">Password</label>
             <input class="form-control" type="password" required id="inputPassword"
                    th:classappend="${param.error} ? 'is-invalid'"
