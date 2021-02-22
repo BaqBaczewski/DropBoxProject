@@ -48,6 +48,7 @@
 
                     <audio class=" list-group-item align-bottom" th:replace="_fragments :: player(${sound.id})" ></audio>
                 </a>
+                <a th:href="@{/newSounds}" class="btn btn-primary">See More</a>
             </div>
         </div>
 
@@ -61,6 +62,7 @@
                     <br>
                     <img th:src="@{/imageData/{imageId}(imageId=${image.id})}" width="318" height="150"></img>
                 </a>
+                <a th:href="@{/newImages}" class="btn btn-primary">See More</a>
             </div>
         </div>
 
@@ -74,6 +76,7 @@
                         <br>
                         <video type="video/mp4" th:src="@{/videoData/{videoId}(videoId=${videos.id})}" width="318" height="150" onmouseover="this.play()" onmouseout="this.pause()"></video>
                     </a>
+                <a th:href="@{/videos}" class="btn btn-primary">See More</a>
             </div>
         </div>
     </div>
