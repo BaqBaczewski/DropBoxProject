@@ -9,8 +9,21 @@ public class TermsOfServiceController {
 
     @GetMapping("/termsOfService")
     public String termsOfService(Model model) {
-        model.addAttribute("name", "Satan");
-        model.addAttribute("city", "Depths of Hell");
+        model.addAttribute("name", "example_name");
+        model.addAttribute("city", "example_city");
        return "termsOfService";
+    }
+
+    @GetMapping("/about")
+    public String aboutUs(Model model) {
+        model.addAttribute("name", "example_name");
+        model.addAttribute("city", "example_city");
+        return "about";
+    }
+    @GetMapping("/contacts")
+    public String contacts(Model model) {
+        model.addAttribute("name", "example_name");
+        model.addAttribute("city", "example_city");
+        return "contacts";
     }
 }
