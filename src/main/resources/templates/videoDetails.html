@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{_layout.html}">
+      layout:decorate="~{_layout.html}" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <title th:text="${video.title}"></title>
 </head>
@@ -9,10 +9,14 @@
 <main layout:fragment="main">
     <div class="card mb-2 shadow p-4 card-body" >
 
-    <h1 th:text="${video.title}"></h1>
-    <video th:replace="_fragments :: video(${video.id})"></video>
-    <pre><strong th:text="${video.description}"></strong></pre>
-        <h6 class="card-title">Uploaded: <a th:text="${@dateFormatter.relative(video.getCreatedAt())}"></a>, by: <a th:href="@{/profile/{userName}(userName=${video.getUser().getName()})}">
+        <div>
+            <center sec:authorize="isAnonymous()"><h3> You need to be logged user</h3></center>
+        </div>
+
+    <h1 sec:authorize="isAuthenticated()" th:text="${video.title}"></h1>
+    <video sec:authorize="isAuthenticated()" th:replace="_fragments :: video(${video.id})"></video>
+    <pre><strong sec:authorize="isAuthenticated()" th:text="${video.description}"></strong></pre>
+        <h6 class="card-title" sec:authorize="isAuthenticated()">Uploaded: <a th:text="${@dateFormatter.relative(video.getCreatedAt())}"></a>, by: <a th:href="@{/profile/{userName}(userName=${video.getUser().getName()})}">
             <strong th:text="${'@' + video.getUser().getName()}"></strong> </a></h6>
     </div>
     </div>
