@@ -156,37 +156,38 @@ public class StartupComponent {
 
         if (soundService.findNewSounds(PageRequest.of(0, 10)).isEmpty()) {
 
-            User exampleUser = userService.createUser("example_sounds", "example123", User.Role.USER);
+            User exampleUser = userService.createUser("MrP.TheMusicMaster", "example123", User.Role.USER);
 
             createExampleSound("Komiku - Pop City", "pop_city.mp3", exampleUser, "My favourite song");
             createExampleSound("Monplaisir - Pizza", "pizza.mp3", exampleUser, "Makes me hungry");
             createExampleSound("Tytia Mina Teremina - Rimsky Champagne Aeroplane", "aeroplane.mp3", exampleUser, "Just putting something here");
             createExampleSound("XTaKeRuX - Pursuing Darkness", "darkness.mp3", exampleUser, "when I am sad, I play this one");
+            createExampleSound("Kevin Macleod - Sneaky Snitch", "SneakySnitch.mp3", exampleUser, "He's looking from shadows");
 
         }
 
         if (videoService.findVideo(PageRequest.of(0, 5)).isEmpty()) {
 
-            User videoUser = userService.createUser("example_video", "video123", User.Role.USER);
+            User videoUser = userService.createUser("MaryMovieEnthusiast", "video123", User.Role.USER);
 
             createExampleVideo("Emotions", "Emotions.mp4", videoUser, "wide range of emotions, it's beautiful");
             createExampleVideo("Sing", "Ready to sing.mp4", videoUser, "had to show you this guys");
-            createExampleVideo("Love", "Love.mp4", videoUser, "Fall in love, forget about whole wolrd");
+            createExampleVideo("Love", "Love.mp4", videoUser, "Fall in love, forget about whole world");
             createExampleVideo("Fire", "Fire.mp4", videoUser, "I miss this so much");
             createExampleVideo("Party Hard", "Party Hard.mp4", videoUser, "Come and party with me!");
             createExampleVideo("Baywatch", "Baywatch.mp4", videoUser, ";) just having fun");
 
         }
 
-
         if (imageService.findNewImages(PageRequest.of(0, 10)).isEmpty()) {
 
-            User exampleUser = userService.createUser("example_images", "example123", User.Role.USER);
+            User exampleUser = userService.createUser("BobThePhotographer", "bob123", User.Role.USER);
 
-            createExampleImages("Example 1", "example1.jpg", exampleUser, "example description");
-            createExampleImages("Example 2", "example2.jpg", exampleUser, "example description");
-            createExampleImages("Example 3", "example3.jpg", exampleUser, "example description");
-            createExampleImages("Example 4", "example4.jpg", exampleUser, "example description");
+            createExampleImages("Break from work", "example1.jpg", exampleUser, "Lonely and tired airport worker");
+            createExampleImages("Accidental art", "example2.jpg", exampleUser, "Urban art at its best");
+            createExampleImages("Cloudy San Francisco", "example3.jpg", exampleUser, "Cloudy and hazy day");
+            createExampleImages("Snow train", "example4.jpg", exampleUser, "A lonely locomotive on snowy tracks");
+            createExampleImages("Dark tunnel", "example5.jpg", exampleUser, "Dark urban landscape");
 
         }
     }
