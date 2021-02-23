@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <!--/*@thymesVar id="sessionUser" type="example.audiohive.app.user.User"*/-->
 <head>
     <title>Layout page</title>
@@ -16,9 +17,16 @@
 <br>
 
 <body data-spy="scroll" data-target=".navbar" data-offset="50">
+<style>
+    img {
+        border: 1px solid #d0d0d0;
+    }
+</style>
+
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
     <a class="navbar-brand text-primary font-weight-bold py-0 mt-n1" th:href="@{/}">
-        <img th:src="@{/icon/logo.jpg}" alt="" height="42" width="42" class="rounded-circle border-danger">
+        <img th:src="@{/icon/logo.jpg}" alt="" height="42" width="42" class="rounded-circle">
         <div class="d-inline-block mt-2">IMAGINARIUM</div>
     </a>
     <button class="navbar-toggler" type="button " data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -31,27 +39,47 @@
 
 
 <!--            <li class="nav-item" th:classappend="${#request.requestURI == '/' ? 'active':''}">-->
-<!--                <a class="nav-link" th:href="@{/}">Home</a>-->
+<!--                <a class="navbar" th:href="@{/}">-->
+<!--                    <img th:src="@{/icon/users.svg}" alt="HOME" height="30" width="30" class="border-danger">-->
+<!--                    <div class="d-inline-block mt-2"></div>-->
+<!--                </a>-->
 <!--            </li>-->
+
             <li class="nav-item" th:classappend="${#request.requestURI == '/newSounds' ? 'active':''}">
-                <a class="nav-link" th:href="@{/newSounds}">Sounds</a>
+                <a class="navbar" th:href="@{/newSounds}">
+                    <img class="border-0" src="/icon/music.svg" alt="SOUNDS" height="25" width="25" title="SOUNDS"></img>
+<!--                    <div class="hoover d-inline-block mt-2">SOUNDS</div>-->
+                </a>
+
             </li>
+
+
             <li class="nav-item" th:classappend="${#request.requestURI == '/newImages' ? 'active':''}">
-                <a class="nav-link" th:href="@{/newImages}">Images</a>
+                <a class="navbar" th:href="@{/newImages}">
+                    <img th:src="@{/icon/image.svg}" alt="IMAGES" height="25" width="25" class="border-0"title="IMAGES"></a>
+<!--                <a class="nav-link" th:href="@{/newImages}">Images</a>-->
             </li>
             <li class="nav-item" th:classappend="${#request.requestURI == '/videos' ? 'active':''}">
-                <a class="nav-link" th:href="@{/videos}">Videos</a>
+                <a class="navbar" th:href="@{/videos}">
+                    <img th:src="@{/icon/video.svg}" alt="VIDEOS" height="25" width="25" class="border-0"title="VIDEOS"></a>
+<!--                <a class="nav-link" th:href="@{/videos}">Videos</a>-->
             </li>
             <li class="nav-item" sec:authorize="isAuthenticated()"
                 th:classappend="${#request.requestURI == '/users' ? 'active':''}">
-                <a class="nav-link" th:href="@{/users}">Users</a>
+                <a class="navbar" th:href="@{/users}">
+                    <img th:src="@{/icon/users.svg}" alt="USERS" height="25" width="25" class="border-0"title="USERS"></a>
+<!--                <a class="nav-link" th:href="@{/users}">Users</a>-->
             </li>
             <li class="nav-item" sec:authorize="isAuthenticated()"
                 th:classappend="${#request.requestURI == '/upload' ? 'active':''}">
-                <a class="nav-link" th:href="@{/upload}">Upload</a>
+                <a class="navbar" th:href="@{/upload}">
+                    <img th:src="@{/icon/upload.svg}" alt="UPLOAD" height="25" width="25" class="border-0" title="UPLOAD"></a>
+<!--                <a class="nav-link" th:href="@{/upload}">Upload</a>-->
             </li>
             <li class="nav-item" th:classappend="${#request.requestURI == '/about' ? 'active':''}">
-                <a class="nav-link" th:href="@{/about}">About Us</a>
+                <a class="navbar" th:href="@{/about}">
+                    <img th:src="@{/icon/target.svg}" alt="ABOUT US" height="25" width="25" class="border-0"title="ABOUT US"></a>
+<!--                <a class="nav-link" th:href="@{/about}">About Us</a>-->
             </li>
         </ul>
         <ul class="navbar-nav mr-2" sec:authorize="isAuthenticated()">
@@ -65,6 +93,8 @@
         <div class="btn-group mr-2" role="toolbar">
             <a class="btn btn-outline-primary" sec:authorize="isAnonymous()"  th:href="@{/login}">Log in</a>
             <a class="btn btn-primary" sec:authorize="isAnonymous()"  th:href="@{/signup}">Sign up</a>
+            <a class="navbar" th:href="@{/}">
+                <img th:src="@{/icon/moon.svg}" alt="DARK MODE" height="25" width="25" class="border-0"title="DARK MODE"></a>
         </div>
     </div>
 </nav>
