@@ -18,8 +18,7 @@
     <pre><strong sec:authorize="isAuthenticated()" th:text="${video.description}"></strong></pre>
         <h6 class="card-title" sec:authorize="isAuthenticated()">Uploaded: <a th:text="${@dateFormatter.relative(video.getCreatedAt())}"></a>, by: <a th:href="@{/profile/{userName}(userName=${video.getUser().getName()})}">
             <strong th:text="${'@' + video.getUser().getName()}"></strong> </a></h6>
-    </div>
-    </div>
+
     <form th:action="@{/changeDescriptionVideo/{videoId}(videoId=${video.getId()})}" th:object="${newDescription}" method="post" enctype="multipart/form-data">
         <div th:if="${#authorization.expr('hasRole(''ROLE_ADMIN'')') or video.user.name eq #authentication.name}">
             <div class="form-group font-weight-bold">
@@ -75,6 +74,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </main>
 </body>
