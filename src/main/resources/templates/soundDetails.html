@@ -23,7 +23,7 @@
         <h6 class="card-title" sec:authorize="isAuthenticated()">Uploaded: <a th:text="${@dateFormatter.relative(sound.getCreatedAt())}"></a>, by: <a class="card-title"
                                                                                                                     th:href="@{/profile/{userName}(userName=${sound.getUser().getName()})}"><strong th:text="${'@' + sound.getUser().getName()}"></strong></a></h6>
     </div>
-    </div>
+
     <form th:action="@{/changeDescriptionSound/{soundId}(soundId=${sound.getId()})}" th:object="${newDescription}" method="post" enctype="multipart/form-data">
         <div th:if="${#authorization.expr('hasRole(''ROLE_ADMIN'')') or sound.user.name eq #authentication.name}">
             <div class="form-group font-weight-bold">
@@ -57,6 +57,7 @@
         </div>
     </form>
 
+
     <div th:if="${#authorization.expr('hasRole(''ROLE_ADMIN'')') or sound.user.name eq #authentication.name}">
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">
@@ -79,6 +80,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </main>
 </body>
