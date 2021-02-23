@@ -19,19 +19,54 @@
     <style>
         h1 {
             text-shadow: 2px 2px #000000;
+            font-stretch: ultra-expanded;
         }
         h2 {
             color: white;
             text-shadow: 1px 1px #030303;
             font-weight: bold;
         }
+        .lead{
+            text-shadow: 1px 1px #ff0000;
+            font-stretch: ultra-expanded;
+        }
+        .jumbotron{
+            background-image:url("/icon/picture_logo.jpg");
+            background-size: cover;
+            background-position: right;
+            background-color: white;
+            border-color: black;
+            border: 5px;
+            height: 100%;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+        }
+        .list-group-item-action{
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+            border-radius: 4px;
+        }
+        .button {
+            background-color: #000000;
+            text-shadow: 1px 1px #838383;
+            color: #e5e5e5;
+            border: 2px solid #ffffff;
+            font-weight: bold;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+        }
+        .button:hover {
+            background-color: #ffffff;
+            color: #000000;
+            border: 2px solid #000000;
+            font-weight: bold;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+        }
+
         </style>
 
 
 
-    <div class="jumbotron border border-secondary" style="padding-top:16px; padding-bottom: 16px">
-        <h1 class="display-4 text-primary  font-weight-bold font-stretch:extra-expanded">IMAGINARIUM</h1>
-        <p class="lead">Share your emotions!</p>
+    <div class="jumbotron jumbotron"  style="padding-top:16px; padding-bottom: 16px" >
+        <h1 class="display-4 text-primary  font-weight-bold">IMAGINARIUM</h1>
+        <p class="lead lead ">Share your emotions!</p>
     </div>
 
         <div class="row">
@@ -44,11 +79,12 @@
                    th:href="@{/sound/{soundId}(soundId=${sound.id})}">
                     <strong th:text="${sound.title}"></strong>
 
-                    <img type="gif" src="https://media.giphy.com/media/fSwS5th9ptwiKcGhDU/giphy.gif" loop=infinite width="318" height="90"></img>
+                    <img class="border-0" type="gif" src="https://media.giphy.com/media/fSwS5th9ptwiKcGhDU/giphy.gif" loop=infinite width="318" height="90"></img>
 
-                    <audio class=" list-group-item align-bottom" th:replace="_fragments :: player(${sound.id})" ></audio>
+                    <audio class="list-group-item"  th:replace="_fragments :: player(${sound.id})" ></audio>
                 </a>
-                <a th:href="@{/newSounds}" class="btn btn-primary">See More</a>
+                <p></p>
+                <a th:href="@{/newSounds}" class="btn button">See More</a>
             </div>
         </div>
 
@@ -62,7 +98,8 @@
                     <br>
                     <img th:src="@{/imageData/{imageId}(imageId=${image.id})}" width="318" height="150"></img>
                 </a>
-                <a th:href="@{/newImages}" class="btn btn-primary">See More</a>
+                <p></p>
+                <a th:href="@{/newImages}" class="btn button">See More</a>
             </div>
         </div>
 
@@ -76,7 +113,8 @@
                         <br>
                         <video type="video/mp4" th:src="@{/videoData/{videoId}(videoId=${videos.id})}" width="318" height="150" onmouseover="this.play()" onmouseout="this.pause()"></video>
                     </a>
-                <a th:href="@{/videos}" class="btn btn-primary">See More</a>
+                <p></p>
+                <a th:href="@{/videos}" class="btn button">See More</a>
             </div>
         </div>
     </div>
