@@ -133,5 +133,11 @@ public class SoundService {
         sound.setDescription(newDescription);
         return soundRepository.save(sound);
     }
+
+    public Sound changeTitleSound(String soundId, String newTitle) {
+        Sound sound = findById(soundId).orElseThrow();
+        sound.setTitle(newTitle);
+        return soundRepository.save(sound);
+    }
 }
 

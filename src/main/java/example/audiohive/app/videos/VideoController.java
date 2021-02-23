@@ -5,6 +5,7 @@ import example.audiohive.app.badge.BadgeService;
 import example.audiohive.app.image.Image;
 import example.audiohive.app.playback.PlaybackService;
 import example.audiohive.app.upload.UploadDescriptionDTO;
+import example.audiohive.app.upload.UploadTitleDTO;
 import example.audiohive.app.videos.VideoService;
 import example.audiohive.app.videos.UploadVideoDTO;
 import example.audiohive.app.user.User;
@@ -85,6 +86,10 @@ public class VideoController {
         uploadDescriptionDTO.setNewDescription(video.getDescription());
         model.addAttribute("newDescription", uploadDescriptionDTO);
 
+        UploadTitleDTO uploadTitleDTO = new UploadTitleDTO();
+        uploadTitleDTO.setNewTitle(video.getTitle());
+        model.addAttribute("newTitle", uploadTitleDTO);
+
         return "videoDetails";
     }
 
@@ -103,6 +108,15 @@ public class VideoController {
         videoService.changeDescriptionVideo(video.getId(), newDescription.getNewDescription());
 
         redirectAttributes.addAttribute("changeDescriptionVideo", true);
+        return "redirect:/video/"+video.getId();
+    }
+
+    @PostMapping("/changeTitleVideo/{videoId}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or #video.user.name eq authentication.name")
+    public String changeTitleVideo(@PathVariable("videoId") Video video, UploadTitleDTO newTitle, RedirectAttributes redirectAttributes) {
+        videoService.changeTitleVideo(video.getId(), newTitle.getNewTitle());
+
+        redirectAttributes.addAttribute("changeTitleVideo", true);
         return "redirect:/video/"+video.getId();
     }
 

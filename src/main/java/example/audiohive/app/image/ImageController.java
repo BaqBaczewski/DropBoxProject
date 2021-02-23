@@ -6,6 +6,7 @@ import example.audiohive.app.playback.PlaybackService;
 import example.audiohive.app.sound.Sound;
 import example.audiohive.app.sound.SoundService;
 import example.audiohive.app.upload.UploadDescriptionDTO;
+import example.audiohive.app.upload.UploadTitleDTO;
 import example.audiohive.app.user.User;
 import jdk.jfr.Description;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,6 +78,10 @@ public class ImageController {
         uploadDescriptionDTO.setNewDescription(image.getDescription());
         model.addAttribute("newDescription", uploadDescriptionDTO);
 
+        UploadTitleDTO uploadTitleDTO = new UploadTitleDTO();
+        uploadTitleDTO.setNewTitle(image.getTitle());
+        model.addAttribute("newTitle", uploadTitleDTO);
+
         return "imageDetails";
     }
 
@@ -95,6 +100,15 @@ public class ImageController {
         imageService.changeDescription(image.getId(), newDescription.getNewDescription());
 
         redirectAttributes.addAttribute("changeDescription", true);
+        return "redirect:/image/"+image.getId();
+    }
+
+    @PostMapping("/changeTitle/{imageId}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or #image.user.name eq authentication.name")
+    public String changeTitle(@PathVariable("imageId") Image image, UploadTitleDTO newTitle, RedirectAttributes redirectAttributes) {
+        imageService.changeTitle(image.getId(), newTitle.getNewTitle());
+
+        redirectAttributes.addAttribute("changeTitle", true);
         return "redirect:/image/"+image.getId();
     }
 }
