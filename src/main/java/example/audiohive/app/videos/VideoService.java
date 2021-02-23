@@ -132,4 +132,10 @@ public class VideoService {
         video.setDescription(newDescription);
         return videoRepository.save(video);
     }
+
+    public Video changeTitleVideo(String videoId, String newTitle) {
+        Video video = findById(videoId).orElseThrow();
+        video.setTitle(newTitle);
+        return videoRepository.save(video);
+    }
 }

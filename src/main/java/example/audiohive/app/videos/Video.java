@@ -39,6 +39,8 @@ public class Video {
         this.description = description;
     }
 
+    public void setTitle(String title) {this.title = title;}
+
     public Video(String title, Blob videoData, Instant createdAt, User user, String description) {
         this.title = title;
         this.videoData = videoData;

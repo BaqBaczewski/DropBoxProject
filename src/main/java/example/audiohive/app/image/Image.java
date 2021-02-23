@@ -41,6 +41,10 @@ public class Image {
         this.description = description;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public Image(String title, Blob imageData, Instant createdAt, User user, String description) {
         this.title = title;
         this.imageData = imageData;

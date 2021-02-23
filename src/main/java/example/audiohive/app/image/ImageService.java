@@ -125,4 +125,10 @@ public class ImageService {
         image.setDescription(newDescription);
         return imageRepository.save(image);
     }
+
+    public Image changeTitle(String imageId, String newTitle) {
+        Image image = findById(imageId).orElseThrow();
+        image.setTitle(newTitle);
+        return imageRepository.save(image);
+    }
 }

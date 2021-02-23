@@ -40,6 +40,22 @@
             </div>
         </div>
     </form>
+    <form th:action="@{/changeTitleSound/{soundId}(soundId=${sound.getId()})}" th:object="${newTitle}" method="post" enctype="multipart/form-data">
+        <div th:if="${#authorization.expr('hasRole(''ROLE_ADMIN'')') or sound.user.name eq #authentication.name}">
+            <div class="form-group font-weight-bold">
+                <label for="inputDescription">Title</label>
+
+                <textarea class="form-control" type="text" required id="inputTitle"
+                          th:classappend="${#fields.hasErrors('newTitle') ? 'is-invalid' : ''}"
+                          th:field="*{newTitle}"></textarea>
+
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('newTitle')}" th:errors="*{newTitle}"></div>
+                <div class="control">
+                    <button class="btn btn-primary" type="submit">Change Title</button>
+                </div>
+            </div>
+        </div>
+    </form>
 
     <div th:if="${#authorization.expr('hasRole(''ROLE_ADMIN'')') or sound.user.name eq #authentication.name}">
         <!-- Button trigger modal -->

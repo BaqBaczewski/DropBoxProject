@@ -40,6 +40,8 @@ public class Sound {
         this.description = description;
     }
 
+    public void setTitle(String title) {this.title = title;}
+
     public Sound(String title, Blob audioData, Instant createdAt, User user, String description) {
         this.title = title;
         this.audioData = audioData;

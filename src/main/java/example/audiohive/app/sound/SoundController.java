@@ -5,6 +5,7 @@ import example.audiohive.app.badge.BadgeService;
 import example.audiohive.app.image.Image;
 import example.audiohive.app.playback.PlaybackService;
 import example.audiohive.app.upload.UploadDescriptionDTO;
+import example.audiohive.app.upload.UploadTitleDTO;
 import example.audiohive.app.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -85,6 +86,10 @@ public class SoundController {
         uploadDescriptionDTO.setNewDescription(sound.getDescription());
         model.addAttribute("newDescription", uploadDescriptionDTO);
 
+        UploadTitleDTO uploadTitleDTO = new UploadTitleDTO();
+        uploadTitleDTO.setNewTitle(sound.getTitle());
+        model.addAttribute("newTitle", uploadTitleDTO);
+
         return "soundDetails";
     }
 
@@ -102,7 +107,16 @@ public class SoundController {
     public String changeDescriptionSound(@PathVariable("soundId") Sound sound, UploadDescriptionDTO newDescription, RedirectAttributes redirectAttributes) {
         soundService.changeDescriptionSound(sound.getId(), newDescription.getNewDescription());
 
-        redirectAttributes.addAttribute("changeDescription", true);
+        redirectAttributes.addAttribute("changeDescriptionSound", true);
+        return "redirect:/sound/"+sound.getId();
+    }
+
+    @PostMapping("/changeTitleSound/{soundId}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or #sound.user.name eq authentication.name")
+    public String changeTitleSound(@PathVariable("soundId") Sound sound, UploadTitleDTO newTitle, RedirectAttributes redirectAttributes) {
+        soundService.changeTitleSound(sound.getId(), newTitle.getNewTitle());
+
+        redirectAttributes.addAttribute("changeTitleSound", true);
         return "redirect:/sound/"+sound.getId();
     }
 }
