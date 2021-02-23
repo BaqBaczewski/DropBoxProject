@@ -2,7 +2,9 @@ package example.audiohive.app.sound;
 
 import example.audiohive.app.badge.Badge;
 import example.audiohive.app.badge.BadgeService;
+import example.audiohive.app.image.Image;
 import example.audiohive.app.playback.PlaybackService;
+import example.audiohive.app.upload.UploadDescriptionDTO;
 import example.audiohive.app.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -69,39 +71,6 @@ public class SoundController {
         return ResponseEntity.notFound().build();
     }
 
-//    @GetMapping("/upload")
-//    @PreAuthorize("isAuthenticated()")
-//    public String upload(Model model) {
-//        model.addAttribute("sound", new UploadSoundDTO("", null, ""));
-//        return "upload";
-//    }
-//
-//    @PostMapping("/upload")
-//    @PreAuthorize("isAuthenticated()")
-//    public String upload(@Valid @ModelAttribute ("sound") UploadSoundDTO sound, BindingResult bindingResult, @ModelAttribute("sessionUser") User sessionUser,
-//                         RedirectAttributes redirectAttributes) {
-//        if (bindingResult.hasErrors()){
-//            return "upload";
-//        }
-//        if (!sound.getFile().getContentType().equals("audio/mpeg")){
-//            bindingResult.addError(new FieldError("sound", "file","Error!!! Incorrect file type."));
-//        }
-//        if (bindingResult.hasErrors()){
-//            return "upload";
-//        }
-//
-//        try {
-//            soundService.create(sound.getTitle(), sound.getFile().getInputStream(), sound.getFile().getSize(),
-//                    sessionUser, Instant.now(), sound.getDescription());
-//
-//            redirectAttributes.addAttribute("uploaded", true);
-//            return "redirect:/newSounds";
-//        } catch (IOException e) {
-//            bindingResult.addError(new ObjectError("file", "Can't read file"));
-//            return "upload";
-//        }
-//    }
-
     @GetMapping("/sound/{soundId}")
     public String soundDetails(Model model, @PathVariable("soundId") Sound sound) {
         model.addAttribute("sound", sound);
@@ -111,6 +80,10 @@ public class SoundController {
 
         List<Badge> badges = badgeService.getSoundBadges(sound, Instant.now());
         model.addAttribute("badges", badges);
+
+        UploadDescriptionDTO uploadDescriptionDTO = new UploadDescriptionDTO();
+        uploadDescriptionDTO.setNewDescription(sound.getDescription());
+        model.addAttribute("newDescription", uploadDescriptionDTO);
 
         return "soundDetails";
     }
@@ -122,5 +95,14 @@ public class SoundController {
 
         redirectAttributes.addAttribute("soundDeleted", true);
         return "redirect:/";
+    }
+
+    @PostMapping("/changeDescriptionSound/{soundId}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or #sound.user.name eq authentication.name")
+    public String changeDescriptionSound(@PathVariable("soundId") Sound sound, UploadDescriptionDTO newDescription, RedirectAttributes redirectAttributes) {
+        soundService.changeDescriptionSound(sound.getId(), newDescription.getNewDescription());
+
+        redirectAttributes.addAttribute("changeDescription", true);
+        return "redirect:/sound/"+sound.getId();
     }
 }

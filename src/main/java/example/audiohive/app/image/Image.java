@@ -1,5 +1,6 @@
 package example.audiohive.app.image;
 
+import example.audiohive.app.upload.UploadDescriptionDTO;
 import example.audiohive.app.user.User;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -34,6 +35,10 @@ public class Image {
     private Instant createdAt;
 
     public Image() {
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Image(String title, Blob imageData, Instant createdAt, User user, String description) {

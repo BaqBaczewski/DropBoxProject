@@ -1,5 +1,6 @@
 package example.audiohive.app.videos;
 
+import example.audiohive.app.image.Image;
 import example.audiohive.app.user.User;
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -123,6 +124,12 @@ public class VideoService {
     public Video create(String title, InputStream videoDataStream, long videoDataLength, User user, Instant createdAt, String description) {
         Blob videoDataBlob = BlobProxy.generateProxy(videoDataStream, videoDataLength);
         Video video = new Video(title, videoDataBlob, createdAt, user, description);
+        return videoRepository.save(video);
+    }
+
+    public Video changeDescriptionVideo(String videoId, String newDescription) {
+        Video video = findById(videoId).orElseThrow();
+        video.setDescription(newDescription);
         return videoRepository.save(video);
     }
 }

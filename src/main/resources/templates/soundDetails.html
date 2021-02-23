@@ -24,6 +24,22 @@
                                                                                                                     th:href="@{/profile/{userName}(userName=${sound.getUser().getName()})}"><strong th:text="${'@' + sound.getUser().getName()}"></strong></a></h6>
     </div>
     </div>
+    <form th:action="@{/changeDescriptionSound/{soundId}(soundId=${sound.getId()})}" th:object="${newDescription}" method="post" enctype="multipart/form-data">
+        <div th:if="${#authorization.expr('hasRole(''ROLE_ADMIN'')') or sound.user.name eq #authentication.name}">
+            <div class="form-group font-weight-bold">
+                <label for="inputDescription">Description</label>
+
+                <textarea class="form-control" type="text" required id="inputDescription"
+                          th:classappend="${#fields.hasErrors('newDescription') ? 'is-invalid' : ''}"
+                          th:field="*{newDescription}"></textarea>
+
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('newDescription')}" th:errors="*{newDescription}"></div>
+                <div class="control">
+                    <button class="btn btn-primary" type="submit">Change Description</button>
+                </div>
+            </div>
+        </div>
+    </form>
 
     <div th:if="${#authorization.expr('hasRole(''ROLE_ADMIN'')') or sound.user.name eq #authentication.name}">
         <!-- Button trigger modal -->

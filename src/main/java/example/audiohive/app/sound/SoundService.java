@@ -1,5 +1,6 @@
 package example.audiohive.app.sound;
 
+import example.audiohive.app.image.Image;
 import example.audiohive.app.user.User;
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -124,6 +125,12 @@ public class SoundService {
     public Sound create(String title, InputStream audioDataStream, long audioDataLength, User user, Instant createdAt, String description) {
         Blob audioDataBlob = BlobProxy.generateProxy(audioDataStream, audioDataLength);
         Sound sound = new Sound(title, audioDataBlob, createdAt, user, description);
+        return soundRepository.save(sound);
+    }
+
+    public Sound changeDescriptionSound(String soundId, String newDescription) {
+        Sound sound = findById(soundId).orElseThrow();
+        sound.setDescription(newDescription);
         return soundRepository.save(sound);
     }
 }

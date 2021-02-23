@@ -2,7 +2,9 @@ package example.audiohive.app.videos;
 
 import example.audiohive.app.badge.Badge;
 import example.audiohive.app.badge.BadgeService;
+import example.audiohive.app.image.Image;
 import example.audiohive.app.playback.PlaybackService;
+import example.audiohive.app.upload.UploadDescriptionDTO;
 import example.audiohive.app.videos.VideoService;
 import example.audiohive.app.videos.UploadVideoDTO;
 import example.audiohive.app.user.User;
@@ -79,6 +81,10 @@ public class VideoController {
     public String videoDetails(Model model, @PathVariable("videoId") Video video) {
         model.addAttribute("video", video);
 
+        UploadDescriptionDTO uploadDescriptionDTO = new UploadDescriptionDTO();
+        uploadDescriptionDTO.setNewDescription(video.getDescription());
+        model.addAttribute("newDescription", uploadDescriptionDTO);
+
         return "videoDetails";
     }
 
@@ -89,6 +95,15 @@ public class VideoController {
 
         redirectAttributes.addAttribute("videoDeleted", true);
         return "redirect:/";
+    }
+
+    @PostMapping("/changeDescriptionVideo/{videoId}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or #video.user.name eq authentication.name")
+    public String changeDescriptionVideo(@PathVariable("videoId") Video video, UploadDescriptionDTO newDescription, RedirectAttributes redirectAttributes) {
+        videoService.changeDescriptionVideo(video.getId(), newDescription.getNewDescription());
+
+        redirectAttributes.addAttribute("changeDescriptionVideo", true);
+        return "redirect:/video/"+video.getId();
     }
 
 }

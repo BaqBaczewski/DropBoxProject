@@ -5,7 +5,9 @@ import example.audiohive.app.badge.BadgeService;
 import example.audiohive.app.playback.PlaybackService;
 import example.audiohive.app.sound.Sound;
 import example.audiohive.app.sound.SoundService;
+import example.audiohive.app.upload.UploadDescriptionDTO;
 import example.audiohive.app.user.User;
+import jdk.jfr.Description;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
@@ -66,9 +68,14 @@ public class ImageController {
         return ResponseEntity.notFound().build();
     }
 
+//
     @GetMapping("/image/{imageId}")
     public String imageDetails(Model model, @PathVariable("imageId") Image image) {
         model.addAttribute("image", image);
+
+        UploadDescriptionDTO uploadDescriptionDTO = new UploadDescriptionDTO();
+        uploadDescriptionDTO.setNewDescription(image.getDescription());
+        model.addAttribute("newDescription", uploadDescriptionDTO);
 
         return "imageDetails";
     }
@@ -80,5 +87,14 @@ public class ImageController {
 
         redirectAttributes.addAttribute("imageDeleted", true);
         return "redirect:/";
+    }
+
+    @PostMapping("/changeDescription/{imageId}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or #image.user.name eq authentication.name")
+    public String changeDescription(@PathVariable("imageId") Image image, UploadDescriptionDTO newDescription, RedirectAttributes redirectAttributes) {
+        imageService.changeDescription(image.getId(), newDescription.getNewDescription());
+
+        redirectAttributes.addAttribute("changeDescription", true);
+        return "redirect:/image/"+image.getId();
     }
 }
