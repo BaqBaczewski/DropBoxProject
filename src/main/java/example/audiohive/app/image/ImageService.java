@@ -1,9 +1,9 @@
 package example.audiohive.app.image;
 
+import example.audiohive.app.upload.UploadDescriptionDTO;
 import example.audiohive.app.user.User;
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -117,6 +117,12 @@ public class ImageService {
     public Image create(String title, InputStream imageDataStream, long imageDataLength, User user, Instant createdAt, String description) {
         Blob imageDataBlob = BlobProxy.generateProxy(imageDataStream, imageDataLength);
         Image image = new Image(title, imageDataBlob, createdAt, user, description);
+        return imageRepository.save(image);
+    }
+
+    public Image changeDescription(String imageId, String newDescription) {
+        Image image = findById(imageId).orElseThrow();
+        image.setDescription(newDescription);
         return imageRepository.save(image);
     }
 }
