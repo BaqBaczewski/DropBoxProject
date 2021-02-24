@@ -17,15 +17,10 @@
 <!--              th:text="${badge.label}"></span>-->
 <!--    </div>-->
 
-
     <div class="badge-body">
             <a class="badge bg-secondary text-light" th:text="'followers '+${user.getFollowers().size()}"  th:href="@{/followers/{userName}(userName=${user.name})}"></a>
-
             <a class="badge bg-secondary text-light" th:text="'following '+${user.getFollowing().size()}"   th:href="@{/following/{userName}(userName=${user.name})}"></a>
-
     </div>
-
-
 
     <form th:action="@{/follow/{userName}(userName=${user.name})}" method="post" sec:authorize="isAuthenticated()">
         <div th:if="${user != sessionUser}">
@@ -38,9 +33,6 @@
         </div>
     </form>
 
-
-
-
         <div>
 
             <center><h3><span th:if="${user.getSounds().isEmpty()}" th:text="${'This user has not uploaded any sounds.'}"></span></h3></center>
@@ -50,16 +42,12 @@
          <br>
         </div>
 
-
-
-
-
     <div th:each="sound: ${newestSounds}" class="card mb-2">
         <div class="card-body">
             <h5 class="card-title" th:text="${sound.title}">Example Sound</h5>
             <audio th:replace="_fragments :: player(${sound.id})"></audio>
             <h6 class="card-title">Uploaded: <small th:text="${@dateFormatter.relative(sound.getCreatedAt())}"></small></h6>
-            <a th:href="@{/sound/{soundId}(soundId=${sound.id})}" class="btn btn-primary stretched-link">Details</a>
+            <a th:href="@{/sound/{soundId}(soundId=${sound.id})}" class="btn btn-primary ">Details</a>
 
         </div>
     </div>
@@ -67,11 +55,11 @@
         <div class="card-body">
             <div>
               <h5 class="card-title" th:text="${image.title}">Example Image</h5>
-              <img th:src="@{/imageData/{imageId}(imageId=${image.id})}" width="350" height="180"></img>
+              <img th:src="@{/imageData/{imageId}(imageId=${image.id})}" class="img-thumbnail" width="100%" ></img>
                 <h6 class="card-title">Uploaded: <small th:text="${@dateFormatter.relative(image.getCreatedAt())}"></small></h6>
             </div>
             <div>
-              <a th:href="@{/image/{imageId}(imageId=${image.id})}" class="btn btn-primary stretched-link">Details</a>
+              <a th:href="@{/image/{imageId}(imageId=${image.id})}" class="btn btn-primary ">Details</a>
             </div>
         </div>
     </div>
@@ -79,16 +67,14 @@
         <div class="card-body">
             <div>
               <h5 class="card-title" th:text="${video.title}">Example Video</h5>
-              <video type="video/mp4" th:src="@{/videoData/{videoId}(videoId=${video.id})}" width="350" height="180" onmouseover="this.play()" onmouseout="this.pause()"></video>
+              <video th:replace="_fragments :: video(${video.id})" width="100%" onmouseover="this.play()" onmouseout="this.pause()"></video>
                 <h6 class="card-title">Uploaded: <small th:text="${@dateFormatter.relative(video.getCreatedAt())}"></small></h6>
             </div>
             <div>
-              <a th:href="@{/video/{videoId}(videoId=${video.id})}" class="btn btn-primary stretched-link">Details</a>
+              <a th:href="@{/video/{videoId}(videoId=${video.id})}" class="btn btn-primary">Details</a>
             </div>
-
         </div>
     </div>
-
 
 </main>
 
