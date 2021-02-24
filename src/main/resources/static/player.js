@@ -15,3 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 })
+function darkxlight() {
+    var element = document.getElementById("darkxlight");
+    element.classList.toggle("dark");
+}

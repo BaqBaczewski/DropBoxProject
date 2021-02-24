@@ -9,14 +9,13 @@
     <link rel="icon" type="image/png" sizes="32x32" th:href="@{/icon/logo.jpg}">
     <link rel="icon" type="image/png" sizes="16x16" th:href="@{/icon/logo.jpg}">
     <link rel="manifest" th:href="@{/site.webmanifest}">
-
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.2/dist/css/bootstrap.css}">
     <link rel="stylesheet" th:href="@{/style.css}">
 </head>
 <br>
 <br>
 
-<body data-spy="scroll" data-target=".navbar" data-offset="50">
+<body data-spy="scroll" data-target=".navbar" data-offset="50" id="darkxlight">
 <style>
     img {
         border: 1px solid #d0d0d0;
@@ -34,7 +33,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" >
         <ul class="navbar-nav mr-auto">
 
 
@@ -94,9 +93,9 @@
         <div class="btn-group mr-2" role="toolbar">
             <a class="btn btn-outline-primary" sec:authorize="isAnonymous()"  th:href="@{/login}">Log in</a>
             <a class="btn btn-primary" sec:authorize="isAnonymous()"  th:href="@{/signup}">Sign up</a>
-            <a class="navbar" th:href="@{/}">
-                <img class="border-0"th:src="@{/icon/moon.svg}" alt="DARK MODE" height="25" width="25" title="DARK MODE"></a>
-        </div>
+            <a class="navbar">
+                <img class="border-0"th:src="@{/icon/moon.svg}" alt="" height="25" width="25" title="DARK MODE" onclick="darkxlight()"></a>
+           </div>
     </div>
 </nav>
 
