@@ -20,6 +20,10 @@
     img {
         border: 1px solid #d0d0d0;
     }
+    .svg:hover{
+        stroke: blue;
+        fill: blue;
+    }
 </style>
 
 
@@ -47,8 +51,9 @@
             <li class="nav-item" th:classappend="${#request.requestURI == '/newSounds' ? 'active':''}">
                 <a class="navbar" th:href="@{/newSounds}">
 
-                        <img class="border-0" src="/icon/music.svg" alt="SOUNDS" height="25" width="25" title="SOUNDS"></img>
+    <img style="border: none" src="/icon/music.svg" alt="SOUNDS" height="25" width="25" title="SOUNDS"></img>
 <!--                    <div class="hoover d-inline-block mt-2">SOUNDS</div>-->
+
                 </a>
 
             </li>
@@ -94,7 +99,8 @@
             <a class="btn btn-outline-primary" sec:authorize="isAnonymous()"  th:href="@{/login}">Log in</a>
             <a class="btn btn-primary" sec:authorize="isAnonymous()"  th:href="@{/signup}">Sign up</a>
             <a class="navbar">
-                <img class="border-0"th:src="@{/icon/moon.svg}" alt="" height="25" width="25" title="DARK MODE" onclick="darkxlight()"></a>
+                <img class="svg border-0"th:src="@{/icon/half-moon-and-sun.svg}" alt="" height="25" width="25" title="DARK MODE" onclick="darkxlight()"></a>
+
            </div>
     </div>
 </nav>
